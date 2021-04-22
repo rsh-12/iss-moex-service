@@ -102,11 +102,13 @@ public class SecurityServiceImpl implements SecurityService {
         return securityRepository.findAll(pageRequest, emitentTitle).getContent();
     }
 
+    /* Define a sort direction */
     private Sort.Direction getSortDirection(String sort) {
         if (sort.contains(",asc")) return Sort.Direction.ASC;
         return Sort.Direction.DESC;
     }
 
+    /* Remove 'asc' */
     private String getSortAsString(String sort) {
         if (sort.contains(",")) return sort.split(",")[0];
         return sort;
@@ -143,6 +145,7 @@ public class SecurityServiceImpl implements SecurityService {
         }
     }
 
+    /* Set the Security fields */
     void initSecurityEntity(Security security, Element element) {
 
         String id = element.getAttribute("id");
