@@ -1,5 +1,7 @@
 package ru.task.iss.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -22,4 +24,8 @@ public interface SecurityRepository extends JpaRepository<Security, Integer> {
     void deleteById(@Param("id") Integer id);
 
     Optional<Security> findBySecId(String secId);
+
+    @Query("from Security s where lower(s.emitentTitle) like lower(concat('%', :emitentTitle, '%'))")
+    Page<Security> findAll(Pageable pageable, @Param("emitentTitle") String emitentTitle);
+
 }
