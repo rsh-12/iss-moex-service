@@ -49,9 +49,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         ErrorResponse error = new ErrorResponse();
+
+        if (ex.getError() != null) {
+            error.setError(ex.getError());
+        } else {
+            error.setError("Something went wrong");
+        }
+
         error.setTimestamp(new Date());
         error.setHttpStatus(httpStatus.value());
-        error.setError("Something went wrong");
         error.setMessage(ex.getMessage());
 
         return new ResponseEntity<>(error, httpStatus);
