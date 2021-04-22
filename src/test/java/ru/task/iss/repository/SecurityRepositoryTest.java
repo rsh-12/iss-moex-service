@@ -61,6 +61,17 @@ public class SecurityRepositoryTest extends AbstractRepositoryClass {
         assertEquals(before - 1, after);
     }
 
+    /* Delete the Security by id */
+    @Test
+    public void deleteById_ShouldDeleteRecordById() {
+        int before = repository.findAll().size();
+        repository.deleteById(131568);
+        entityManager.flush();
+
+        int after = repository.findAll().size();
+        assertEquals(before - 1, after);
+    }
+
     /* Update the Security shortname */
     @Test
     public void update_ShouldUpdateSecurityBySecId() {
