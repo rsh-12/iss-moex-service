@@ -39,6 +39,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     private final SecurityRepository securityRepository;
 
+    // List that contains all Security's fields for the sorting validation
     private final List<Field> fields = Arrays.asList(Security.class.getDeclaredFields());
 
     public SecurityServiceImpl(SecurityRepository securityRepository) {
@@ -87,6 +88,7 @@ public class SecurityServiceImpl implements SecurityService {
         String sortBy = getSortAsString(sort);
         String finalSortBy = sortBy;
 
+        // If there is no such field or the name is incorrect, set the default to secId
         boolean isValid = fields.stream().anyMatch(field -> field.getName().equals(finalSortBy));
         if (!isValid) {
             sortBy = "secId";
