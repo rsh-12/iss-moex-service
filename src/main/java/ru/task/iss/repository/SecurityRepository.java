@@ -10,7 +10,10 @@ import java.util.Optional;
 public interface SecurityRepository extends JpaRepository<Security, Integer> {
 
     @Query("from Security s where s.id=:id")
+    @Override
     Optional<Security> findById(@Param("id") Integer id);
+
+    void deleteBySecId(String secId);
 
     Optional<Security> findBySecId(String secId);
 }
