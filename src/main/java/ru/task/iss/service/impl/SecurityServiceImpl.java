@@ -6,6 +6,8 @@ package ru.task.iss.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class SecurityServiceImpl implements SecurityService {
@@ -33,6 +38,8 @@ public class SecurityServiceImpl implements SecurityService {
     private static final Logger log = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
     private final SecurityRepository securityRepository;
+
+    private final List<Field> fields = Arrays.asList(Security.class.getDeclaredFields());
 
     public SecurityServiceImpl(SecurityRepository securityRepository) {
         this.securityRepository = securityRepository;
@@ -61,9 +68,46 @@ public class SecurityServiceImpl implements SecurityService {
         parseXmlData(file);
     }
 
+    /* Create the entity if the name is only Cyrillic +/- numbers (space) */
     @Override
     public void create(Security security) {
+        if (!security.getName().matches("^[а-яА-Я0-9]+( [а-яА-Я0-9]+)*$")) {
+            throw new CustomException("Validation error",
+                    "The name must contain only Cyrillic and numbers", HttpStatus.BAD_REQUEST);
+        }
         save(security);
+    }
+
+    @Override
+    public List<Security> findAllSecurities(Integer pageNo, Integer pageSize,
+                                            String sort, String emitentTitle) {
+
+        String sortBy = getSortAsString(sort);
+        String finalSortBy = sortBy;
+
+        boolean isValid = fields.stream().anyMatch(field -> field.getName().equals( finalSortBy));
+        if (!isValid) {
+            sortBy = "secId";
+        }
+
+        PageRequest pageRequest = PageRequest.of(
+                pageNo, pageSize, Sort.by(getSortDirection(sort), sortBy));
+
+        if (emitentTitle == null) {
+            return securityRepository.findAll(pageRequest).getContent();
+        }
+
+        return securityRepository.findAll(pageRequest, emitentTitle).getContent();
+    }
+
+    private Sort.Direction getSortDirection(String sort) {
+        if (sort.contains(",asc")) return Sort.Direction.ASC;
+        return Sort.Direction.DESC;
+    }
+
+    private String getSortAsString(String sort) {
+        if (sort.contains(",")) return sort.split(",")[0];
+        return sort;
     }
 
     @Async
