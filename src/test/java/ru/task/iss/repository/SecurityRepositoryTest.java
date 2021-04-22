@@ -35,4 +35,17 @@ public class SecurityRepositoryTest extends AbstractRepositoryClass {
         assertNotNull(security);
         assertEquals("Apple Inc.", security.getName());
     }
+
+    @Test
+    public void save_ShouldSaveNewSecurity() {
+        int before = repository.findAll().size();
+        Security security = createSecurity();
+        entityManager.persist(security);
+        int after = repository.findAll().size();
+
+        assertEquals(before + 1, after);
+    }
+
+    // delete
+    // update
 }
