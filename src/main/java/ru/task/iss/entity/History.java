@@ -53,8 +53,10 @@ public class History {
 
     private Double admittedQuote;
 
+    @Column(name = "mp2_val_trd")
     private Double mp2ValTrd;
 
+    @Column(name = "market_price3_trades_value")
     private Double marketPrice3TradesValue;
 
     private Double admittedValue;
@@ -70,10 +72,6 @@ public class History {
     }
 
     // getter/setters
-    public Security getSecurity() {
-        return security;
-    }
-
     public void setSecurity(Security security) {
         this.security = security;
     }

@@ -200,10 +200,6 @@ public class Security {
         this.marketPriceBoardid = marketPriceBoardid;
     }
 
-    public List<History> getHistory() {
-        return history;
-    }
-
     public void setHistory(List<History> history) {
         this.history = history;
     }
