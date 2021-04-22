@@ -6,7 +6,6 @@ package ru.task.iss.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
@@ -73,36 +72,12 @@ public class Security {
     public Security() {
     }
 
-    public List<History> getHistory() {
-        return history;
-    }
-
-    public void setHistory(List<History> history) {
-        this.history = history;
-    }
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getIsTraded() {
-        return isTraded;
-    }
-
-    public void setIsTraded(Integer isTraded) {
-        this.isTraded = isTraded;
-    }
-
-    public Integer getEmitentId() {
-        return emitentId;
-    }
-
-    public void setEmitentId(Integer emitentId) {
-        this.emitentId = emitentId;
     }
 
     public String getSecId() {
@@ -118,7 +93,7 @@ public class Security {
     }
 
     public void setShortname(String shortname) {
-        this.shortname = shortname.trim();
+        this.shortname = shortname;
     }
 
     public String getRegnumber() {
@@ -134,7 +109,7 @@ public class Security {
     }
 
     public void setName(String name) {
-        this.name = name.trim();
+        this.name = name;
     }
 
     public String getIsin() {
@@ -145,11 +120,19 @@ public class Security {
         this.isin = isin;
     }
 
-    public void setIsTraded(int isTraded) {
+    public Integer getIsTraded() {
+        return isTraded;
+    }
+
+    public void setIsTraded(Integer isTraded) {
         this.isTraded = isTraded;
     }
 
-    public void setEmitentId(int emitentId) {
+    public Integer getEmitentId() {
+        return emitentId;
+    }
+
+    public void setEmitentId(Integer emitentId) {
         this.emitentId = emitentId;
     }
 
@@ -215,6 +198,14 @@ public class Security {
 
     public void setMarketPriceBoardid(String marketPriceBoardid) {
         this.marketPriceBoardid = marketPriceBoardid;
+    }
+
+    public List<History> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<History> history) {
+        this.history = history;
     }
 
     @Override
