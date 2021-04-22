@@ -45,12 +45,14 @@ public class SecurityServiceImpl implements SecurityService {
         this.securityRepository = securityRepository;
     }
 
+    /* Convert multipart file to file */
     private File multipartToFile(MultipartFile file) throws IOException {
         File convFile = new File(System.getProperty("java.io.tmpdir") + "/" + file.getOriginalFilename());
         file.transferTo(convFile);
         return convFile;
     }
 
+    /* Save the security to DB */
     public void save(Security security) {
         log.info("Saving the security");
         securityRepository.save(security);
@@ -85,7 +87,7 @@ public class SecurityServiceImpl implements SecurityService {
         String sortBy = getSortAsString(sort);
         String finalSortBy = sortBy;
 
-        boolean isValid = fields.stream().anyMatch(field -> field.getName().equals( finalSortBy));
+        boolean isValid = fields.stream().anyMatch(field -> field.getName().equals(finalSortBy));
         if (!isValid) {
             sortBy = "secId";
         }
