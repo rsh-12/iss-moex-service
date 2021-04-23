@@ -156,12 +156,12 @@ public class SecurityServiceImpl implements SecurityService {
         }
 
         String isTraded = element.getAttribute("is_traded");
-        if (isValid(isTraded)) {
+        if (isValid(isTraded) && isTraded.matches("\\d+")) {
             security.setIsTraded(Integer.parseInt(isTraded));
         }
 
         String emitentId = element.getAttribute("emitent_id");
-        if (isValid(emitentId)) {
+        if (isValid(emitentId) && emitentId.matches("\\d+")) {
             security.setEmitentId(Integer.parseInt(emitentId));
         }
 
