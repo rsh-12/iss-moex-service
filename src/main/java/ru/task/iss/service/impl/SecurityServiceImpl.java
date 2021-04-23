@@ -105,9 +105,17 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public Security findOneById(Integer id) {
+    public Security findById(Integer id) {
         return securityRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Not Found", "Security not found", HttpStatus.NOT_FOUND));
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        if (!securityRepository.existsById(id)) {
+            throw new CustomException("Not Found", "Security not found: " + id, HttpStatus.BAD_REQUEST);
+        }
+        securityRepository.deleteById(id);
     }
 
     /* Define a sort direction */
