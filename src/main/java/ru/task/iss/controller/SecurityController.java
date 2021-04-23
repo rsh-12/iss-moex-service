@@ -49,7 +49,7 @@ public class SecurityController {
     }
 
     /* Create a Security */
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<String> createSecurity(@Valid @RequestBody Security security) {
         securityService.create(security);
         return new ResponseEntity<>("Created a new security", HttpStatus.CREATED);
