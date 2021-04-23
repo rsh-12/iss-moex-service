@@ -1,6 +1,5 @@
 package ru.task.iss.service;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 import ru.task.iss.entity.Security;
 
@@ -14,6 +13,8 @@ public interface SecurityService {
     void create(Security security);
 
     List<Security> findAllSecurities(Integer pageNo, Integer pageSize, String sort, String emitentId);
+
+    Security findOneById(Integer id);
 
     // read
     // update
