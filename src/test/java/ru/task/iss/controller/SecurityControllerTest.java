@@ -21,9 +21,9 @@ public class SecurityControllerTest extends AbstractControllerClass {
     /* Get the security by id - returns ok */
     @Test
     public void findOne_ShouldReturnSecurityById() throws Exception {
-        mvc.perform(get(SECURITIES + 154676))
+        mvc.perform(get(SECURITIES + 12441))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("shortname", containsString("Apple")))
+                .andExpect(jsonPath("shortname", containsString("АбрауДюрсо")))
                 .andDo(print());
     }
 
