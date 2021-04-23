@@ -40,6 +40,7 @@ public class SecurityController {
         this.assembler = assembler;
     }
 
+    /* Import securities' data from XML */
     @PostMapping(value = "/import")
     public ResponseEntity<String> importData(@RequestParam("file") MultipartFile file) throws IOException {
         log.info("Starting parsing data");
@@ -47,12 +48,14 @@ public class SecurityController {
         return ResponseEntity.ok("Successfully processed");
     }
 
+    /* Create a Security */
     @PostMapping
     public ResponseEntity<String> createSecurity(@Valid @RequestBody Security security) {
         securityService.create(security);
         return new ResponseEntity<>("Created a new security", HttpStatus.CREATED);
     }
 
+    /* Get list of securities */
     @GetMapping
     public CollectionModel<EntityModel<Security>> findAll(
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer pageNo,
@@ -71,6 +74,7 @@ public class SecurityController {
                         .findAll(pageNo, pageSize, sort, emitentTitle)).withSelfRel());
     }
 
+    /* Get the security by id */
     @GetMapping("/{id}")
     public EntityModel<Security> findOne(@PathVariable("id") Integer id) {
         Security security = securityService.findOneById(id);
