@@ -7,6 +7,8 @@ package ru.task.iss.controller;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.containsStringIgnoringCase;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -21,6 +23,16 @@ public class SecurityControllerTest extends AbstractControllerClass {
         mvc.perform(get(SECURITIES + 154676))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("shortname", containsString("Apple")))
+                .andDo(print());
+    }
+
+    /* Delete the security by id - returns 404 */
+    @Test
+    public void deleteOne_ReturnsBadRequest() throws Exception {
+        mvc.perform(delete(SECURITIES + 999))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("message",
+                        containsStringIgnoringCase("security not found: " + 999)))
                 .andDo(print());
     }
 }
