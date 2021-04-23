@@ -4,6 +4,7 @@ package ru.task.iss.controller;
  * Time: 5:50 PM
  * */
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,5 +21,15 @@ public abstract class AbstractControllerClass {
 
     @Autowired
     MockMvc mvc;
+
+    static String convertToJson(final Object obj) {
+        try {
+            final ObjectMapper mapper = new ObjectMapper();
+            return mapper.writeValueAsString(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Conversion error");
+        }
+    }
 
 }
