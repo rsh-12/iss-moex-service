@@ -14,9 +14,10 @@ public interface SecurityService {
 
     List<Security> findAllSecurities(Integer pageNo, Integer pageSize, String sort, String emitentId);
 
-    Security findOneById(Integer id);
+    Security findById(Integer id);
+
+    void deleteById(Integer id);
 
     // read
     // update
-    // delete
 }
