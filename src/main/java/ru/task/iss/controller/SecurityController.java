@@ -77,8 +77,14 @@ public class SecurityController {
     /* Get the security by id */
     @GetMapping("/{id}")
     public EntityModel<Security> findOne(@PathVariable("id") Integer id) {
-        Security security = securityService.findOneById(id);
+        Security security = securityService.findById(id);
         return assembler.toModel(security);
     }
 
+    /* Delete the security by id */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteOne(@PathVariable("id") Integer id) {
+        securityService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
