@@ -1,6 +1,7 @@
 package ru.task.iss.service;
 
 import org.springframework.web.multipart.MultipartFile;
+import ru.task.iss.dto.SecurityDto;
 import ru.task.iss.entity.Security;
 
 import java.io.IOException;
@@ -18,6 +19,6 @@ public interface SecurityService {
 
     void deleteById(Integer id);
 
-    // read
-    // update
+    void update(Integer id, SecurityDto securityDto);
+
 }
