@@ -52,7 +52,7 @@ public class SecurityController {
     @PostMapping(consumes = "application/json")
     public ResponseEntity<String> createSecurity(@Valid @RequestBody Security security) {
         securityService.create(security);
-        return new ResponseEntity<>("Created a new security", HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /* Get list of securities */
@@ -87,4 +87,7 @@ public class SecurityController {
         securityService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    /* Update the security */
+
 }
