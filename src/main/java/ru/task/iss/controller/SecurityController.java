@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.task.iss.controller.assembler.SecurityModelAssembler;
+import ru.task.iss.dto.SecurityDto;
 import ru.task.iss.entity.Security;
 import ru.task.iss.service.SecurityService;
 
@@ -89,5 +90,11 @@ public class SecurityController {
     }
 
     /* Update the security */
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateById(@PathVariable("id") Integer id,
+                                        @Valid @RequestBody SecurityDto securityDto) {
+        securityService.update(id, securityDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
