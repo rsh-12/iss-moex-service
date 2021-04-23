@@ -104,6 +104,12 @@ public class SecurityServiceImpl implements SecurityService {
         return securityRepository.findAll(pageRequest, emitentTitle).getContent();
     }
 
+    @Override
+    public Security findOneById(Integer id) {
+        return securityRepository.findById(id)
+                .orElseThrow(() -> new CustomException("Security not found", HttpStatus.NOT_FOUND));
+    }
+
     /* Define a sort direction */
     private Sort.Direction getSortDirection(String sort) {
         if (sort.contains(",asc")) return Sort.Direction.ASC;
