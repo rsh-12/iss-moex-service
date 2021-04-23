@@ -6,12 +6,14 @@ package ru.task.iss.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.hateoas.server.core.Relation;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "history")
+@Relation(value = "history", collectionRelation = "history")
 public class History {
 
     // fields

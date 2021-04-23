@@ -4,6 +4,8 @@ package ru.task.iss.entity;
  * Time: 4:49 PM
  * */
 
+import org.springframework.hateoas.server.core.Relation;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -12,6 +14,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "securities")
+@Relation(value = "security", collectionRelation = "securities")
 public class Security {
 
     @Column(unique = true, nullable = false)
