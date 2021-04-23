@@ -10,6 +10,7 @@ import ru.task.iss.entity.Security;
 
 import java.util.Optional;
 
+/* Because of the name of the ID field, I had to override the query methods */
 public interface SecurityRepository extends JpaRepository<Security, Integer> {
 
     @Query("from Security s where s.id=:id")
@@ -22,6 +23,10 @@ public interface SecurityRepository extends JpaRepository<Security, Integer> {
     @Modifying
     @Query(nativeQuery = true, value = "delete from securities s where s.id = :id")
     void deleteById(@Param("id") Integer id);
+
+    @Override
+    @Query("select case when count(s) > 0 then true else false end from Security s where s.id = :id")
+    boolean existsById(@Param("id") Integer id);
 
     Optional<Security> findBySecId(String secId);
 
