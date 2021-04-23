@@ -4,6 +4,7 @@ package ru.task.iss.service.impl;
  * Time: 9:06 PM
  * */
 
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import ru.task.iss.dto.SecurityDto;
 import ru.task.iss.entity.Security;
 import ru.task.iss.exception.CustomException;
 import ru.task.iss.repository.SecurityRepository;
@@ -38,12 +40,14 @@ public class SecurityServiceImpl implements SecurityService {
     private static final Logger log = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
     private final SecurityRepository securityRepository;
+    private final ModelMapper mapper;
 
     // List that contains all Security's fields for the sorting validation
     private final List<Field> fields = Arrays.asList(Security.class.getDeclaredFields());
 
-    public SecurityServiceImpl(SecurityRepository securityRepository) {
+    public SecurityServiceImpl(SecurityRepository securityRepository, ModelMapper mapper) {
         this.securityRepository = securityRepository;
+        this.mapper = mapper;
     }
 
     /* Convert multipart file to file */
@@ -104,18 +108,36 @@ public class SecurityServiceImpl implements SecurityService {
         return securityRepository.findAll(pageRequest, emitentTitle).getContent();
     }
 
+    /**
+     * Returns a Security object from database
+     *
+     * @param id a identifier of the Security object
+     * @return the Security object
+     * @throws CustomException if an object not found
+     */
     @Override
     public Security findById(Integer id) {
         return securityRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Not Found", "Security not found", HttpStatus.NOT_FOUND));
     }
 
+    /* Delete the security by id */
     @Override
     public void deleteById(Integer id) {
         if (!securityRepository.existsById(id)) {
             throw new CustomException("Not Found", "Security not found: " + id, HttpStatus.BAD_REQUEST);
         }
         securityRepository.deleteById(id);
+    }
+
+    @Override
+    public void update(Integer id, SecurityDto securityDto) {
+        Security security = securityRepository.findById(id)
+                .orElseThrow(() -> new CustomException("Not Found",
+                        "Security not found: " + id, HttpStatus.NOT_FOUND));
+
+        mapper.map(securityDto, security);
+        save(security);
     }
 
     /* Define a sort direction */
@@ -130,6 +152,7 @@ public class SecurityServiceImpl implements SecurityService {
         return sort;
     }
 
+    /* Parse XML document */
     @Async
     void parseXmlData(File file) {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
