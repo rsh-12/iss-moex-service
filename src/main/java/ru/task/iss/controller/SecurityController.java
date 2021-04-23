@@ -71,4 +71,10 @@ public class SecurityController {
                         .findAll(pageNo, pageSize, sort, emitentTitle)).withSelfRel());
     }
 
+    @GetMapping("/{id}")
+    public EntityModel<Security> findOne(@PathVariable("id") Integer id) {
+        Security security = securityService.findOneById(id);
+        return assembler.toModel(security);
+    }
+
 }
