@@ -21,6 +21,8 @@ public class SecurityModelAssembler
     public EntityModel<Security> toModel(Security entity) {
         return EntityModel.of(entity,
                 linkTo(methodOn(SecurityController.class)
+                        .findOne(entity.getId())).withSelfRel(),
+                linkTo(methodOn(SecurityController.class)
                         .findAll(null, null, null, null)).withRel("securities"));
     }
 }
