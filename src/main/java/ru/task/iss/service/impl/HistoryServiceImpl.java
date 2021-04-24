@@ -49,7 +49,8 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public History findById(Long id) {
-        return null;
+        return historyRepository.findById(id).orElseThrow(() ->
+                new CustomException("Not Found", "History not found: " + id, HttpStatus.NOT_FOUND));
     }
 
     @Override
