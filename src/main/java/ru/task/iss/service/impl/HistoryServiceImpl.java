@@ -7,6 +7,7 @@ package ru.task.iss.service.impl;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import ru.task.iss.dto.HistoryDto;
 import ru.task.iss.entity.History;
 import ru.task.iss.exception.CustomException;
 import ru.task.iss.repository.HistoryRepository;
+import ru.task.iss.repository.SecurityRepository;
 import ru.task.iss.service.HistoryService;
 import ru.task.iss.util.HistoryXmlParser;
 
@@ -28,6 +30,9 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
 
     private final HistoryRepository historyRepository;
     private final ModelMapper mapper;
+
+    @Autowired
+    private SecurityRepository securityRepository;
 
     public HistoryServiceImpl(HistoryRepository historyRepository, ModelMapper mapper) {
         this.historyRepository = historyRepository;
@@ -118,7 +123,7 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
     /**
      * Updates a record fields and then saves to the DB.
      *
-     * @param id is a History object identifier.
+     * @param id         is a History object identifier.
      * @param historyDto - DTO for History entity.
      * @throws CustomException if History object by ID was not found.
      */
@@ -135,6 +140,9 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
 
     /* Save the history to the DB */
     public void save(History history) {
+        if (!securityRepository.existsBySecId(history.getSecId())) {
+            throw new CustomException("Not found", "PK not found", HttpStatus.NOT_FOUND);
+        }
         historyRepository.save(history);
     }
 }
