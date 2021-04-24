@@ -28,12 +28,12 @@ public class SecurityXmlParser extends XmlParser {
         }
 
         String isTraded = element.getAttribute("is_traded");
-        if (isValid(isTraded) && isTraded.matches("\\d+")) {
+        if (isValid(isTraded)) {
             security.setIsTraded(Integer.parseInt(isTraded));
         }
 
         String emitentId = element.getAttribute("emitent_id");
-        if (isValid(emitentId) && emitentId.matches("\\d+")) {
+        if (isValid(emitentId)) {
             security.setEmitentId(Integer.parseInt(emitentId));
         }
 
