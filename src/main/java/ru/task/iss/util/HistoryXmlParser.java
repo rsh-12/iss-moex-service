@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import ru.task.iss.entity.History;
 import ru.task.iss.repository.HistoryRepository;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 
 @Service
@@ -24,8 +25,12 @@ public class HistoryXmlParser extends XmlParser {
     void initEntity(Element element) {
         History history = new History();
 
+        String tradeDate = element.getAttribute("TRADEDATE");
+        if (isValid(tradeDate)) {
+            history.setTradeDate(LocalDate.parse(tradeDate));
+        }
+
         history.setBoardId(element.getAttribute("BOARDID"));
-        history.setTradeDate(LocalDate.parse(element.getAttribute("TRADEDATE")));
         history.setShortname(element.getAttribute("SHORTNAME"));
         history.setSecId(element.getAttribute("SECID"));
 
