@@ -34,54 +34,54 @@ public class History {
     @Column(name = "sec_id_fk", insertable = false, updatable = false)
     private String secId;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double numTrades;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double value;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double open;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double low;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double high;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double legalClosePrice;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double waPrice;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double close;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double volume;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double marketPrice2;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double marketPrice3;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double admittedQuote;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     @Column(name = "mp2_val_trd")
     private Double mp2ValTrd;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     @Column(name = "market_price3_trades_value")
     private Double marketPrice3TradesValue;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double admittedValue;
 
-    @Digits(integer = 12, fraction = 2)
+    @Digits(integer = 12, fraction = 4)
     private Double waVal;
 
     @ManyToOne(fetch = FetchType.LAZY)
