@@ -23,6 +23,6 @@ public class HistoryModelAssembler
                 linkTo(methodOn(HistoryController.class)
                         .findOne(entity.getId())).withSelfRel(),
                 linkTo(methodOn(HistoryController.class)
-                        .findAll(null, null, null, null)).withRel("securities"));
+                        .findAll(null, null, null, null)).withRel("histories"));
     }
 }
