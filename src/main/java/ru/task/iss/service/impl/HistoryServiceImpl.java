@@ -47,12 +47,12 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
 
     }
 
     @Override
-    public void update(Integer id, HistoryDto historyDto) {
+    public void update(Long id, HistoryDto historyDto) {
 
     }
 
