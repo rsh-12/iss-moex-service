@@ -140,8 +140,9 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
 
     /* Save the history to the DB */
     public void save(History history) {
-        if (!securityRepository.existsBySecId(history.getSecId())) {
-            throw new CustomException("Not found", "PK not found", HttpStatus.NOT_FOUND);
+        String fk = history.getSecId();
+        if (!securityRepository.existsBySecId(fk)) {
+            throw new CustomException("Not found", "Primary Key not found: " + fk, HttpStatus.NOT_FOUND);
         }
         historyRepository.save(history);
     }
