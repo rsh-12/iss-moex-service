@@ -18,7 +18,7 @@ public interface HistoryService {
 
     History findById(Long id);
 
-    void deleteById(Integer id);
+    void deleteById(Long id);
 
-    void update(Integer id, HistoryDto historyDto);
+    void update(Long id, HistoryDto historyDto);
 }
