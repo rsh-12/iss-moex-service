@@ -35,7 +35,7 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
 
     /* Save the security to the DB */
     public void save(Security security) {
-        log.info("Saving the security");
+        log.info("> saving the security");
         securityRepository.save(security);
     }
 
@@ -44,24 +44,28 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
      * Parses and initializes the entity, then saves to the DB.
      *
      * @param multipartFile XML Multipart file.
-     * @throws CustomException if file is not found, catches an IOException,
+     * @throws CustomException if file was not found, catches an IOException,
      *                         a ParserConfigurationException or a SAXException.
      */
     @Override
     public void importXmlData(MultipartFile multipartFile) {
+        log.info("> parsing XML file (security)");
         SecurityXmlParser securityXmlParser = new SecurityXmlParser(securityRepository);
         securityXmlParser.parseAndSave(multipartFile);
     }
 
     /**
-     * Creates a new History object and then saves to the DB.
+     * Creates a new Security object and then saves to the DB.
      *
      * @param security is a Security object.
      * @throws CustomException if name is not valid.
      */
     @Override
     public void create(Security security) {
+        log.info("> creating a new Security object");
+
         if (!security.getName().matches("^[а-яА-Я0-9]+( [а-яА-Я0-9]+)*$")) {
+            log.warn("> name validation failed");
             throw new CustomException("Validation error",
                     "The name must contain only Cyrillic and numbers", HttpStatus.BAD_REQUEST);
         }
@@ -69,17 +73,19 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
     }
 
     /**
-     * Method searches for records in the DB and always returns a list of History objects or an empty list
+     * Method searches for records in the DB and always returns a list of Security objects or an empty list
      *
-     * @param pageNo    - page number, default 0.
-     * @param pageSize  - page size,default 10 elements.
-     * @param sort      - sorting, default by secId.
+     * @param pageNo       - page number, default 0.
+     * @param pageSize     - page size,default 10 elements.
+     * @param sort         - sorting, default by secId.
      * @param emitentTitle - filtering by emitent_title.
      * @return list of Security objects.
      */
     @Override
     public List<Security> findAllSecurities(Integer pageNo, Integer pageSize,
                                             String sort, String emitentTitle) {
+        log.info("> getting a list of securities objects");
+
         PageRequest pageRequest = getPageRequest(pageNo, pageSize, sort, SECURITY_FIELDS);
 
         if (emitentTitle == null) {
@@ -93,10 +99,12 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
      *
      * @param id is an identifier of the Security object.
      * @return a Security object.
-     * @throws CustomException if an object not found.
+     * @throws CustomException if an object was not found.
      */
     @Override
     public Security findById(Integer id) {
+        log.info("> getting a Security by id: " + id);
+
         return securityRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Not Found", "Security not found", HttpStatus.NOT_FOUND));
     }
@@ -105,11 +113,14 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
      * Deletes a record by ID from the DB.
      *
      * @param id is a Security identifier
-     * @throws CustomException if object is not found.
+     * @throws CustomException if object was not found.
      */
     @Override
     public void deleteById(Integer id) {
+        log.info("> deleting a Security by id: " + id);
+
         if (!securityRepository.existsById(id)) {
+            log.warn("> a Security by id {} not found", id);
             throw new CustomException("Not Found", "Security not found: " + id, HttpStatus.BAD_REQUEST);
         }
         securityRepository.deleteById(id);
@@ -119,12 +130,14 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
      * Searches a securiy by ID.
      * Updates a record fields and then saves to the DB.
      *
-     * @param id is a Security object identifier.
+     * @param id          is a Security object identifier.
      * @param securityDto - DTO for Security entity.
-     * @throws CustomException if Security by ID is not found.
+     * @throws CustomException if Security by ID was not found.
      */
     @Override
     public void update(Integer id, SecurityDto securityDto) {
+        log.info("> updating a Security by id: " + id);
+
         Security security = securityRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Not Found",
                         "Security not found: " + id, HttpStatus.NOT_FOUND));

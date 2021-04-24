@@ -5,6 +5,8 @@ package ru.task.iss.service.impl;
  * */
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ import java.util.List;
 @Service
 public class HistoryServiceImpl extends AbstractServiceClass implements HistoryService {
 
+    private static final Logger log = LoggerFactory.getLogger(HistoryServiceImpl.class);
+
     private final HistoryRepository historyRepository;
     private final ModelMapper mapper;
 
@@ -35,11 +39,12 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
      * Parses and initializes the entity, then saves to the DB.
      *
      * @param multipartFile is a XML Multipart file.
-     * @throws CustomException if file is not found, catches an IOException,
+     * @throws CustomException if file was not found, catches an IOException,
      *                         a ParserConfigurationException or a SAXException.
      */
     @Override
     public void importXmlData(MultipartFile multipartFile) {
+        log.info("> parsing XML file (history)");
         HistoryXmlParser historyXmlParser = new HistoryXmlParser(historyRepository);
         historyXmlParser.parseAndSave(multipartFile);
     }
@@ -51,6 +56,7 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
      */
     @Override
     public void create(HistoryDto historyDto) {
+        log.info("> creating a new History object");
         History history = mapper.map(historyDto, History.class);
         save(history);
     }
@@ -67,6 +73,8 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
     @Override
     public List<History> findAllHistories(Integer pageNo, Integer pageSize,
                                           String sort, LocalDate tradeDate) {
+        log.info("> getting a list of histories objects");
+
         PageRequest pageRequest = getPageRequest(pageNo, pageSize, sort, HISTORY_FIELDS);
 
         if (tradeDate == null) {
@@ -80,10 +88,12 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
      *
      * @param id - History object identifier.
      * @return History object.
-     * @throws CustomException if the record is not found in the DB.
+     * @throws CustomException if the record was not found in the DB.
      */
     @Override
     public History findById(Long id) {
+        log.info("> getting a History by id: " + id);
+
         return historyRepository.findById(id).orElseThrow(() ->
                 new CustomException("Not Found", "History not found: " + id, HttpStatus.NOT_FOUND));
     }
@@ -92,11 +102,14 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
      * Method deletes a record by ID from the DB.
      *
      * @param id is a History object identifier.
-     * @throws CustomException if the record is not found in the DB.
+     * @throws CustomException if the record was not found in the DB.
      */
     @Override
     public void deleteById(Long id) {
+        log.info("> deleting a History by id: " + id);
+
         if (!historyRepository.existsById(id)) {
+            log.warn("> a History by id {} not found", id);
             throw new CustomException("Not Found", "History not found: " + id, HttpStatus.NOT_FOUND);
         }
         historyRepository.deleteById(id);
@@ -107,10 +120,12 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
      *
      * @param id is a History object identifier.
      * @param historyDto - DTO for History entity.
-     * @throws CustomException if History object by ID is not found.
+     * @throws CustomException if History object by ID was not found.
      */
     @Override
     public void update(Long id, HistoryDto historyDto) {
+        log.info("> updating a History by id: " + id);
+
         History history = historyRepository.findById(id).orElseThrow(() ->
                 new CustomException("Not Found", "History not found: " + id, HttpStatus.NOT_FOUND));
 
