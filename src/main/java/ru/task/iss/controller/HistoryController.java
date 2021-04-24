@@ -6,15 +6,16 @@ package ru.task.iss.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.task.iss.controller.assembler.HistoryModelAssembler;
+import ru.task.iss.dto.HistoryDto;
+import ru.task.iss.entity.Security;
 import ru.task.iss.service.HistoryService;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @RestController
@@ -37,6 +38,13 @@ public class HistoryController {
         log.info("Starting parsing data");
         historyService.importXmlData(file);
         return ResponseEntity.ok("Successfully processed");
+    }
+
+    /* Create a Security */
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity<String> createHistory(@Valid @RequestBody HistoryDto historyDto) {
+        historyService.create(historyDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     public Class<?> findOne(Long id) {
