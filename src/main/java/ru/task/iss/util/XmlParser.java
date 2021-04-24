@@ -40,8 +40,9 @@ public abstract class XmlParser {
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
-                    System.out.println(element.getAttribute("id"));
-                    initEntity(element);
+                    if (element.getAttribute("INDEX").isEmpty()) {
+                        initEntity(element);
+                    }
                 }
             }
         } catch (ParserConfigurationException | IOException | SAXException e) {
