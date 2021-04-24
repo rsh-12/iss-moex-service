@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.task.iss.dto.HistoryDto;
 import ru.task.iss.entity.History;
-import ru.task.iss.entity.Security;
 import ru.task.iss.repository.HistoryRepository;
 import ru.task.iss.service.HistoryService;
 import ru.task.iss.util.HistoryXmlParser;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -37,12 +37,12 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public List<Security> findAllHistories(Integer pageNo, Integer pageSize, String sort, String emitentId) {
+    public List<History> findAllHistories(Integer pageNo, Integer pageSize, String sort, LocalDate tradeDate) {
         return null;
     }
 
     @Override
-    public History findById(Integer id) {
+    public History findById(Long id) {
         return null;
     }
 
