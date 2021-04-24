@@ -83,8 +83,16 @@ public class HistoryController {
 
     /* Delete the history by id */
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteOne(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> deleteOne(@PathVariable("id") Long id) {
         historyService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    /* Update the history  */
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateById(@PathVariable("id") Long id,
+                                        @Valid @RequestBody HistoryDto historyDto) {
+        historyService.update(id, historyDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
