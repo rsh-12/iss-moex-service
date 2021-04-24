@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 public abstract class AbstractControllerClass {
 
     final static String SECURITIES = "/api/securities/";
+    final static String HISTORIES = "/api/histories/";
 
     @Autowired
     MockMvc mvc;
