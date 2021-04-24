@@ -51,7 +51,7 @@ public class HistoryXmlParser extends XmlParser {
 
     private Double getCheckedValue(Element element, String value) {
         String field = element.getAttribute(value);
-        if (field != null) return Double.parseDouble(field);
+        if (isValid(field)) return Double.parseDouble(field);
         return null;
     }
 
