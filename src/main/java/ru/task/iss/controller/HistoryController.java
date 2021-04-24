@@ -6,6 +6,7 @@ package ru.task.iss.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,12 @@ import ru.task.iss.service.HistoryService;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/histories")
@@ -48,15 +55,29 @@ public class HistoryController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /* Get list of histories */
+    @GetMapping
+    public CollectionModel<EntityModel<History>> findAll(
+            @RequestParam(value = "page", required = false, defaultValue = "0") Integer pageNo,
+            @RequestParam(value = "size", required = false, defaultValue = "10") Integer pageSize,
+            @RequestParam(value = "sort", required = false, defaultValue = "secId") String sort,
+            @RequestParam(value = "trade_date", required = false) LocalDate tradeDate
+    ) {
+
+        List<EntityModel<History>> histories = historyService
+                .findAllHistories(pageNo, pageSize, sort, tradeDate).stream()
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(histories,
+                linkTo(methodOn(HistoryController.class)
+                        .findAll(pageNo, pageSize, sort, tradeDate)).withSelfRel());
+    }
+
     /* Get the history by id */
     @GetMapping("/{id}")
     public EntityModel<History> findOne(@PathVariable("id") Long id) {
         History history = historyService.findById(id);
         return assembler.toModel(history);
-    }
-
-
-    public Class<?> findAll(Object o, Object o1, Object o2, Object o3) {
-        return null;
     }
 }
