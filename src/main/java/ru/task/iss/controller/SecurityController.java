@@ -4,8 +4,6 @@ package ru.task.iss.controller;
  * Time: 7:56 PM
  * */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -30,8 +28,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RequestMapping("/api/securities")
 public class SecurityController {
 
-    private static final Logger log = LoggerFactory.getLogger(SecurityController.class);
-
     private final SecurityService securityService;
     private final SecurityModelAssembler assembler;
 
@@ -44,7 +40,6 @@ public class SecurityController {
     /* Import securities' data from XML */
     @PostMapping(value = "/import")
     public ResponseEntity<String> importData(@RequestParam("file") MultipartFile file) throws IOException {
-        log.info("Starting parsing data");
         securityService.importXmlData(file);
         return ResponseEntity.ok("Successfully processed");
     }

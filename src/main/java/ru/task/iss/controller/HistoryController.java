@@ -4,8 +4,6 @@ package ru.task.iss.controller;
  * Time: 9:10 AM
  * */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
@@ -30,8 +28,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RequestMapping("/api/histories")
 public class HistoryController {
 
-    private static final Logger log = LoggerFactory.getLogger(HistoryController.class);
-
     private final HistoryService historyService;
     private final HistoryModelAssembler assembler;
 
@@ -43,7 +39,6 @@ public class HistoryController {
     /* Import History data from XML */
     @PostMapping(value = "/import")
     public ResponseEntity<String> importData(@RequestParam("file") MultipartFile file) throws IOException {
-        log.info("Starting parsing data");
         historyService.importXmlData(file);
         return ResponseEntity.ok("Successfully processed");
     }
