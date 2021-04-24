@@ -48,7 +48,7 @@ public class SecurityServiceImpl implements SecurityService {
     @Override
     public void importXmlData(MultipartFile multipartFile) {
         SecurityXmlParser securityXmlParser = new SecurityXmlParser(securityRepository);
-        securityXmlParser.parse(multipartFile);
+        securityXmlParser.parseAndSave(multipartFile);
     }
 
     /* Create the entity if the name is only Cyrillic +/- numbers (space) */
