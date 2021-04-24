@@ -4,6 +4,7 @@ package ru.task.iss.service.impl;
  * Time: 9:21 AM
  * */
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.task.iss.dto.HistoryDto;
@@ -20,9 +21,11 @@ import java.util.List;
 public class HistoryServiceImpl implements HistoryService {
 
     private final HistoryRepository historyRepository;
+    private final ModelMapper mapper;
 
-    public HistoryServiceImpl(HistoryRepository historyRepository) {
+    public HistoryServiceImpl(HistoryRepository historyRepository, ModelMapper mapper) {
         this.historyRepository = historyRepository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -33,7 +36,8 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public void create(HistoryDto historyDto) {
-
+        History history = mapper.map(historyDto, History.class);
+        save(history);
     }
 
     @Override
