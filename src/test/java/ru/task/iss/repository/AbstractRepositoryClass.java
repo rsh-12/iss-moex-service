@@ -26,7 +26,7 @@ public class AbstractRepositoryClass {
         security.setRegnumber("");
         security.setName("name");
         security.setIsin("ISIN2323");
-        security.setIsTraded(12);
+        security.setIsTraded(1);
         security.setEmitentId(212);
         security.setEmitentTitle("emtitentTitle");
         security.setEmitentOkpo("okpo");
