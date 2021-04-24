@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 public class SecurityDto {
 
-    @Size(max =64)
+    @Size(max = 64)
     private String shortname;
 
     @Size(max = 128)
