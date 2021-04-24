@@ -34,20 +34,20 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
      * Converts MultipartFile to a File.
      * Parses and initializes the entity, then saves to the DB.
      *
-     * @param file XML Multipart file.
+     * @param multipartFile is a XML Multipart file.
      * @throws CustomException if file is not found, catches an IOException,
      *                         a ParserConfigurationException or a SAXException.
      */
     @Override
-    public void importXmlData(MultipartFile file) {
+    public void importXmlData(MultipartFile multipartFile) {
         HistoryXmlParser historyXmlParser = new HistoryXmlParser(historyRepository);
-        historyXmlParser.parseAndSave(file);
+        historyXmlParser.parseAndSave(multipartFile);
     }
 
     /**
      * Creates a new History object and saves to the DB.
      *
-     * @param historyDto DTO for History object.
+     * @param historyDto - DTO for History object.
      */
     @Override
     public void create(HistoryDto historyDto) {
@@ -58,10 +58,10 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
     /**
      * Method searches for records in the DB and always returns a list of History objects or an empty list
      *
-     * @param pageNo    page number - default 0.
-     * @param pageSize  page size - default 10 elements.
-     * @param sort      sorting - default by secId.
-     * @param tradeDate filtering.
+     * @param pageNo    - page number, default 0.
+     * @param pageSize  - page size, default 10 elements.
+     * @param sort      - sorting, default by secId.
+     * @param tradeDate - filtering by trade_date.
      * @return list of Hisotry objects.
      */
     @Override
@@ -78,8 +78,8 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
     /**
      * Method searches for a specific record by ID in the DB.
      *
-     * @param id History object identifier.
-     * @return a History object.
+     * @param id - History object identifier.
+     * @return History object.
      * @throws CustomException if the record is not found in the DB.
      */
     @Override
@@ -90,7 +90,8 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
 
     /**
      * Method deletes a record by ID from the DB.
-     * @param id a History object identifier.
+     *
+     * @param id is a History object identifier.
      * @throws CustomException if the record is not found in the DB.
      */
     @Override
@@ -104,8 +105,9 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
     /**
      * Updates a record fields and then saves to the DB.
      *
-     * @param id a History object identifier.
-     * @param historyDto DTO for History entity.
+     * @param id is a History object identifier.
+     * @param historyDto - DTO for History entity.
+     * @throws CustomException if History object by ID is not found.
      */
     @Override
     public void update(Long id, HistoryDto historyDto) {
@@ -116,11 +118,7 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
         save(history);
     }
 
-    /**
-     * Saves a History to the DB.
-     *
-     * @param history is a History object.
-     */
+    /* Save the history to the DB */
     public void save(History history) {
         historyRepository.save(history);
     }
