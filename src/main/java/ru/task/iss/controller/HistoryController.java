@@ -80,4 +80,11 @@ public class HistoryController {
         History history = historyService.findById(id);
         return assembler.toModel(history);
     }
+
+    /* Delete the history by id */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteOne(@PathVariable("id") Integer id) {
+        historyService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
