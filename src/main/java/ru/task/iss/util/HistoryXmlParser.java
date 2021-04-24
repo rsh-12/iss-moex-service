@@ -4,7 +4,6 @@ package ru.task.iss.util;
  * Time: 10:22 AM
  * */
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
 import ru.task.iss.entity.History;
