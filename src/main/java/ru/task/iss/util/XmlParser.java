@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public abstract class XmlParser {
 
-    public void parse(MultipartFile multipartFile) {
+    public void parseAndSave(MultipartFile multipartFile) {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 
         try {
