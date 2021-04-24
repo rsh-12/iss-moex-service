@@ -6,13 +6,14 @@ package ru.task.iss.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.task.iss.controller.assembler.HistoryModelAssembler;
 import ru.task.iss.dto.HistoryDto;
-import ru.task.iss.entity.Security;
+import ru.task.iss.entity.History;
 import ru.task.iss.service.HistoryService;
 
 import javax.validation.Valid;
@@ -40,16 +41,20 @@ public class HistoryController {
         return ResponseEntity.ok("Successfully processed");
     }
 
-    /* Create a Security */
+    /* Create a History */
     @PostMapping(consumes = "application/json")
     public ResponseEntity<String> createHistory(@Valid @RequestBody HistoryDto historyDto) {
         historyService.create(historyDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    public Class<?> findOne(Long id) {
-        return null;
+    /* Get the history by id */
+    @GetMapping("/{id}")
+    public EntityModel<History> findOne(@PathVariable("id") Long id) {
+        History history = historyService.findById(id);
+        return assembler.toModel(history);
     }
+
 
     public Class<?> findAll(Object o, Object o1, Object o2, Object o3) {
         return null;

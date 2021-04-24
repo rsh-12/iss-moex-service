@@ -16,7 +16,7 @@ public interface HistoryService {
 
     List<Security> findAllHistories(Integer pageNo, Integer pageSize, String sort, String emitentId);
 
-    History findById(Integer id);
+    History findById(Long id);
 
     void deleteById(Integer id);
 
