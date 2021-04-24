@@ -7,6 +7,7 @@ package ru.task.iss.entity;
 import org.springframework.hateoas.server.core.Relation;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.Objects;
 public class Security {
 
     @Column(unique = true, nullable = false)
+    @Digits(integer = 12, fraction = 0)
     private Integer id;
 
     @Id
@@ -38,8 +40,10 @@ public class Security {
     @Size(max = 128)
     private String isin;
 
+    @Digits(integer = 12, fraction = 0)
     private Integer isTraded;
 
+    @Digits(integer = 1, fraction = 0)
     private Integer emitentId;
 
     @Size(max = 128)
