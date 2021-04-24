@@ -4,6 +4,8 @@ package ru.task.iss.controller;
  * Time: 9:10 AM
  * */
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Api(tags = "Histories")
 @RestController
 @RequestMapping("/api/histories")
 public class HistoryController {
@@ -36,7 +39,8 @@ public class HistoryController {
         this.assembler = assembler;
     }
 
-    /* Import History data from XML */
+    /* Import a History data from XML */
+    @ApiOperation(value = "Import XML data")
     @PostMapping(value = "/import")
     public ResponseEntity<String> importData(@RequestParam("file") MultipartFile file) throws IOException {
         historyService.importXmlData(file);
@@ -44,13 +48,15 @@ public class HistoryController {
     }
 
     /* Create a History */
+    @ApiOperation(value = "Create a new History object")
     @PostMapping(consumes = "application/json")
     public ResponseEntity<String> createHistory(@Valid @RequestBody HistoryDto historyDto) {
         historyService.create(historyDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    /* Get list of histories */
+    /* Get a list of histories */
+    @ApiOperation(value = "Get a list of History objects")
     @GetMapping
     public CollectionModel<EntityModel<History>> findAll(
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer pageNo,
@@ -70,6 +76,7 @@ public class HistoryController {
     }
 
     /* Get the history by id */
+    @ApiOperation(value = "Get the History object by ID")
     @GetMapping("/{id}")
     public EntityModel<History> findOne(@PathVariable("id") Long id) {
         History history = historyService.findById(id);
@@ -77,13 +84,15 @@ public class HistoryController {
     }
 
     /* Delete the history by id */
+    @ApiOperation(value = "Delete the History by ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOne(@PathVariable("id") Long id) {
         historyService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    /* Update the history  */
+    /* Update the history by id  */
+    @ApiOperation("Update the History object by ID")
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateById(@PathVariable("id") Long id,
                                         @Valid @RequestBody HistoryDto historyDto) {

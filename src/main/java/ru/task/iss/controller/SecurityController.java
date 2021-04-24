@@ -4,6 +4,8 @@ package ru.task.iss.controller;
  * Time: 7:56 PM
  * */
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Api(tags = "Securities")
 @RestController
 @RequestMapping("/api/securities")
 public class SecurityController {
@@ -37,7 +40,8 @@ public class SecurityController {
         this.assembler = assembler;
     }
 
-    /* Import securities' data from XML */
+    /* Import securities data from XML */
+    @ApiOperation(value = "Import XML data")
     @PostMapping(value = "/import")
     public ResponseEntity<String> importData(@RequestParam("file") MultipartFile file) throws IOException {
         securityService.importXmlData(file);
@@ -45,13 +49,15 @@ public class SecurityController {
     }
 
     /* Create a Security */
+    @ApiOperation(value = "Create a new Security object")
     @PostMapping(consumes = "application/json")
     public ResponseEntity<String> createSecurity(@Valid @RequestBody Security security) {
         securityService.create(security);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    /* Get list of securities */
+    /* Get a list of securities */
+    @ApiOperation(value = "Get a list of Security objects")
     @GetMapping
     public CollectionModel<EntityModel<Security>> findAll(
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer pageNo,
@@ -70,7 +76,8 @@ public class SecurityController {
                         .findAll(pageNo, pageSize, sort, emitentTitle)).withSelfRel());
     }
 
-    /* Get the security by id */
+    /* Get the security object by id */
+    @ApiOperation(value = "Get the Security object by ID")
     @GetMapping("/{id}")
     public EntityModel<Security> findOne(@PathVariable("id") Integer id) {
         Security security = securityService.findById(id);
@@ -78,6 +85,7 @@ public class SecurityController {
     }
 
     /* Delete the security by id */
+    @ApiOperation(value = "Delete the Security by ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOne(@PathVariable("id") Integer id) {
         securityService.deleteById(id);
@@ -85,6 +93,7 @@ public class SecurityController {
     }
 
     /* Update the security */
+    @ApiOperation("Update the Security object by ID")
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateById(@PathVariable("id") Integer id,
                                         @Valid @RequestBody SecurityDto securityDto) {
