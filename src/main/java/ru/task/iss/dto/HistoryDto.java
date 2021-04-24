@@ -6,6 +6,7 @@ package ru.task.iss.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.constraints.Digits;
 import java.time.LocalDate;
 
 public class HistoryDto {
@@ -19,36 +20,52 @@ public class HistoryDto {
 
     private String secId;
 
+    @Digits(integer = 12, fraction = 4)
     private Double numTrades;
 
+    @Digits(integer = 12, fraction = 4)
     private Double value;
 
+    @Digits(integer = 12, fraction = 4)
     private Double open;
 
+    @Digits(integer = 12, fraction = 4)
     private Double low;
 
+    @Digits(integer = 12, fraction = 4)
     private Double high;
 
+    @Digits(integer = 12, fraction = 4)
     private Double legalClosePrice;
 
+    @Digits(integer = 12, fraction = 4)
     private Double waPrice;
 
+    @Digits(integer = 12, fraction = 4)
     private Double close;
 
+    @Digits(integer = 12, fraction = 4)
     private Double volume;
 
+    @Digits(integer = 12, fraction = 4)
     private Double marketPrice2;
 
+    @Digits(integer = 12, fraction = 4)
     private Double marketPrice3;
 
+    @Digits(integer = 12, fraction = 4)
     private Double admittedQuote;
 
+    @Digits(integer = 12, fraction = 4)
     private Double mp2ValTrd;
 
+    @Digits(integer = 12, fraction = 4)
     private Double marketPrice3TradesValue;
 
+    @Digits(integer = 12, fraction = 4)
     private Double admittedValue;
 
+    @Digits(integer = 12, fraction = 4)
     private Double waVal;
 
     public String getBoardId() {
