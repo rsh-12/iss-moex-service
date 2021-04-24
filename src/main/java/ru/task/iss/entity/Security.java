@@ -40,10 +40,10 @@ public class Security {
     @Size(max = 128)
     private String isin;
 
-    @Digits(integer = 12, fraction = 0)
+    @Digits(integer = 1, fraction = 0)
     private Integer isTraded;
 
-    @Digits(integer = 1, fraction = 0)
+    @Digits(integer = 12, fraction = 0)
     private Integer emitentId;
 
     @Size(max = 128)
