@@ -33,4 +33,6 @@ public interface SecurityRepository extends JpaRepository<Security, Integer> {
     @Query("from Security s where lower(s.emitentTitle) like lower(concat('%', :emitentTitle, '%'))")
     Page<Security> findAll(Pageable pageable, @Param("emitentTitle") String emitentTitle);
 
+    boolean existsBySecId(String secId);
+
 }
