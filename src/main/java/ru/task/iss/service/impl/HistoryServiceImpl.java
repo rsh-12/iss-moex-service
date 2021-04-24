@@ -62,7 +62,11 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public void update(Long id, HistoryDto historyDto) {
+        History history = historyRepository.findById(id).orElseThrow(() ->
+                new CustomException("Not Found", "History not found: " + id, HttpStatus.NOT_FOUND));
 
+        mapper.map(historyDto, history);
+        save(history);
     }
 
     public void save(History history) {
