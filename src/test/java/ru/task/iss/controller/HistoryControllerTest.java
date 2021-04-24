@@ -7,14 +7,14 @@ package ru.task.iss.controller;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import ru.task.iss.dto.HistoryDto;
-import ru.task.iss.entity.History;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class HistoryControllerTest extends AbstractControllerClass {
 
+    /* Create a new History object - returns validation error, 404 */
     @Test
     public void createHistory_ShouldReturnError() throws Exception {
         HistoryDto history = new HistoryDto();
