@@ -6,6 +6,7 @@ package ru.task.iss.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.hateoas.server.core.Relation;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class History {
     // fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long id;
 
     private String boardId;
