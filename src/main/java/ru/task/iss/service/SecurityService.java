@@ -25,4 +25,6 @@ public interface SecurityService {
 
     List<SecurityHistoryDto> findSpecificFields(
             Integer pageNo, Integer pageSize, String sort, String emitentTitle, LocalDate tradeDate);
+
+    List<SecurityHistoryDto> findViewFields(Integer pageNo, Integer pageSize, String sort);
 }
