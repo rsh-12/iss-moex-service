@@ -27,15 +27,19 @@ public class HistoryXmlParser extends XmlParser {
     void initEntity(Element element) {
         History history = new History();
 
+        String secid = element.getAttribute("SECID");
+        if (!securityRepository.existsBySecId(secid)) {
+            return;
+        }
+
         String tradeDate = element.getAttribute("TRADEDATE");
         if (isValid(tradeDate)) {
             history.setTradeDate(LocalDate.parse(tradeDate));
         }
 
+        history.setSecId(secid);
         history.setBoardId(element.getAttribute("BOARDID"));
         history.setShortname(element.getAttribute("SHORTNAME"));
-        history.setSecId(element.getAttribute("SECID"));
-
         history.setNumTrades(getCheckedValue(element, "NUMTRADES"));
         history.setValue(getCheckedValue(element, "VALUE"));
         history.setOpen(getCheckedValue(element, "OPEN"));
@@ -64,9 +68,6 @@ public class HistoryXmlParser extends XmlParser {
 
     @Override
     void saveEntity(Object entity) {
-        History history = (History) entity;
-        if (securityRepository.existsBySecId(history.getSecId())) {
-            historyRepository.save(history);
-        }
+        historyRepository.save((History) entity);
     }
 }
