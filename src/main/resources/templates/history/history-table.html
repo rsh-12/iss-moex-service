@@ -33,7 +33,15 @@
                 <td th:text="${history.getBoardId()}">boardid</td>
                 <td th:text="${history.getShortname()}">shortname</td>
                 <td th:text="${history.getTradeDate()}">tradedate</td>
-                <td align="center"><a href=""><i class="fas fa-trash-alt"></i></a></td>
+
+                <td align="center">
+                    <form th:action="@{/history/delete(id=${history.getId()})}" th:method="delete">
+                        <button onclick="return confirm('Delete this object?')"
+                                class="btn btn-outline-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
+                        <a type="submit"></a>
+                    </form>
+                </td>
+
             </tr>
             </tbody>
         </table>
