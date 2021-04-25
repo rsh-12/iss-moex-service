@@ -8,17 +8,19 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
 import ru.task.iss.entity.History;
 import ru.task.iss.repository.HistoryRepository;
+import ru.task.iss.repository.SecurityRepository;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 
 @Service
 public class HistoryXmlParser extends XmlParser {
 
+    private final SecurityRepository securityRepository;
     private final HistoryRepository historyRepository;
 
-    public HistoryXmlParser(HistoryRepository historyRepository) {
+    public HistoryXmlParser(HistoryRepository historyRepository, SecurityRepository securityRepository) {
         this.historyRepository = historyRepository;
+        this.securityRepository = securityRepository;
     }
 
     @Override
@@ -62,6 +64,9 @@ public class HistoryXmlParser extends XmlParser {
 
     @Override
     void saveEntity(Object entity) {
-        historyRepository.save((History) entity);
+        History history = (History) entity;
+        if (securityRepository.existsBySecId(history.getSecId())) {
+            historyRepository.save(history);
+        }
     }
 }
