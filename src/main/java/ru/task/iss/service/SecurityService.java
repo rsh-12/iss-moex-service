@@ -15,7 +15,7 @@ public interface SecurityService {
 
     void create(Security security);
 
-    List<Security> findAllSecurities(Integer pageNo, Integer pageSize, String sort, String emitentId);
+    List<Security> findAllSecurities(Integer pageNo, Integer pageSize, String sort, String emitentTitle);
 
     Security findById(Integer id);
 
