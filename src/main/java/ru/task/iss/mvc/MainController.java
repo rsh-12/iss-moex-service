@@ -41,7 +41,7 @@ public class MainController {
         model.addAttribute("sort", sort);
         model.addAttribute("fields", fields);
         model.addAttribute("reverseOrder", sort.contains("asc") ? "" : ",asc");
-        model.addAttribute("order", sort.contains("asc") ? "asc" : "");
+
         return "view";
     }
 }
