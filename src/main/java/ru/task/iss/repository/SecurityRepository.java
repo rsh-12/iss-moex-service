@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import ru.task.iss.dto.SecurityHistoryDto;
 import ru.task.iss.entity.Security;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Optional;
 
 /* Because of the name of the ID field, I had to override the query methods */
@@ -39,6 +39,15 @@ public interface SecurityRepository extends JpaRepository<Security, Integer> {
 
     @Query("select NEW ru.task.iss.dto.SecurityHistoryDto(s.secId, s.regnumber, s.name, s.emitentTitle, " +
             "h.tradeDate, h.numTrades, h.open, h.close) " +
-            "from Security s left join History h on s.secId=h.secId")
-    List<SecurityHistoryDto> findSpecificFields();
+            "from Security s left join History h on s.secId=h.secId " +
+            "where lower(s.emitentTitle) like lower(concat('%', :title, '%')) or h.tradeDate = :date")
+    Page<SecurityHistoryDto> findFields(Pageable pageable);
+
+    @Query("select NEW ru.task.iss.dto.SecurityHistoryDto(s.secId, s.regnumber, s.name, s.emitentTitle, " +
+            "h.tradeDate, h.numTrades, h.open, h.close) " +
+            "from Security s left join History h on s.secId=h.secId " +
+            "where lower(s.emitentTitle) like lower(concat('%', :title, '%')) or h.tradeDate = :date")
+    Page<SecurityHistoryDto> findFields(Pageable pageable,
+                                                @Param("title") String emitentTitle,
+                                                @Param("date") LocalDate tradeDate);
 }
