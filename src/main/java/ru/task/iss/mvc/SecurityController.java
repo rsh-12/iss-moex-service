@@ -6,9 +6,7 @@ package ru.task.iss.mvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.task.iss.entity.Security;
 import ru.task.iss.service.SecurityService;
 
@@ -39,6 +37,12 @@ public class SecurityController {
         model.addAttribute("reverseOrder", sort.contains("asc") ? "" : ",asc");
 
         return "security/security-table";
+    }
+
+    @PostMapping("/delete")
+    public String deleteSecurity(@RequestParam("id") Integer id) {
+        securityService.deleteById(id);
+        return "redirect:/security";
     }
 
 }
