@@ -30,12 +30,12 @@ public class SecurityController {
                           @RequestParam(value = "sort", required = false, defaultValue = "secId") String sort,
                           Model model) {
 
-        List<Security> fields = securityService.findAllSecurities(pageNo, pageSize, sort, null);
+        List<Security> securities = securityService.findAllSecurities(pageNo, pageSize, sort, null);
 
         model.addAttribute("page", pageNo);
         model.addAttribute("size", pageSize);
         model.addAttribute("sort", sort);
-        model.addAttribute("fields", fields);
+        model.addAttribute("securities", securities);
         model.addAttribute("reverseOrder", sort.contains("asc") ? "" : ",asc");
 
         return "security/security-table";
