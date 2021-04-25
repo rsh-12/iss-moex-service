@@ -39,8 +39,7 @@ public interface SecurityRepository extends JpaRepository<Security, Integer> {
 
     @Query("select NEW ru.task.iss.dto.SecurityHistoryDto(s.secId, s.regnumber, s.name, s.emitentTitle, " +
             "h.tradeDate, h.numTrades, h.open, h.close) " +
-            "from Security s left join History h on s.secId=h.secId " +
-            "where lower(s.emitentTitle) like lower(concat('%', :title, '%')) or h.tradeDate = :date")
+            "from Security s left join History h on s.secId=h.secId")
     Page<SecurityHistoryDto> findFields(Pageable pageable);
 
     @Query("select NEW ru.task.iss.dto.SecurityHistoryDto(s.secId, s.regnumber, s.name, s.emitentTitle, " +
