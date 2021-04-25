@@ -62,7 +62,7 @@ public class HistoryController {
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer pageNo,
             @RequestParam(value = "size", required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(value = "sort", required = false, defaultValue = "secId") String sort,
-            @RequestParam(value = "trade_date", required = false) LocalDate tradeDate
+            @RequestParam(value = "date", required = false) LocalDate tradeDate
     ) {
 
         List<EntityModel<History>> histories = historyService
