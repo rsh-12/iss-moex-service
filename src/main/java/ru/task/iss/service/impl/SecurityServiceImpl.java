@@ -12,12 +12,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.task.iss.dto.SecurityDto;
+import ru.task.iss.dto.SecurityHistoryDto;
 import ru.task.iss.entity.Security;
 import ru.task.iss.exception.CustomException;
 import ru.task.iss.repository.SecurityRepository;
 import ru.task.iss.service.SecurityService;
 import ru.task.iss.util.SecurityXmlParser;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -144,6 +146,29 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
 
         mapper.map(securityDto, security);
         save(security);
+    }
+
+    /**
+     * Returns a list of specific fields: secid, regnumber, name, emitent_title, tradedate, numtrades, open, close.
+     *
+     * @param pageNo       indicates the page number.
+     * @param pageSize     sets the number of objects to return.
+     * @param sort         - sorting by field, case sensitive.
+     * @param emitentTitle - filtering by emitent_title, case insensitive.
+     * @param tradeDate    compares to trade_date.
+     * @return list of specific fields.
+     */
+    @Override
+    public List<SecurityHistoryDto> findSpecificFields(Integer pageNo, Integer pageSize, String sort,
+                                                       String emitentTitle, LocalDate tradeDate) {
+        log.info("> getting a list of specific fields");
+
+        PageRequest pageRequest = getPageRequest(pageNo, pageSize, sort, SECURITY_HISTORY_FIELDS);
+
+        if (emitentTitle == null && tradeDate == null) {
+            return securityRepository.findFields(pageRequest).getContent();
+        }
+        return securityRepository.findFields(pageRequest, emitentTitle, tradeDate).getContent();
     }
 
 }

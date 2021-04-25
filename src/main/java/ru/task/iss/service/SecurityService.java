@@ -2,9 +2,11 @@ package ru.task.iss.service;
 
 import org.springframework.web.multipart.MultipartFile;
 import ru.task.iss.dto.SecurityDto;
+import ru.task.iss.dto.SecurityHistoryDto;
 import ru.task.iss.entity.Security;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface SecurityService {
@@ -21,4 +23,6 @@ public interface SecurityService {
 
     void update(Integer id, SecurityDto securityDto);
 
+    List<SecurityHistoryDto> findSpecificFields(
+            Integer pageNo, Integer pageSize, String sort, String emitentTitle, LocalDate tradeDate);
 }

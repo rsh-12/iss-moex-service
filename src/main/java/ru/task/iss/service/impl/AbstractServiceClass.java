@@ -6,6 +6,7 @@ package ru.task.iss.service.impl;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import ru.task.iss.dto.SecurityHistoryDto;
 import ru.task.iss.entity.History;
 import ru.task.iss.entity.Security;
 
@@ -15,9 +16,10 @@ import java.util.List;
 
 abstract class AbstractServiceClass {
 
-    // List that contains all Security, History fields for the sorting validation
+    // List that contains all Security, History, SecurityHistory fields for the sorting validation
     final List<Field> SECURITY_FIELDS = Arrays.asList(Security.class.getDeclaredFields());
     final List<Field> HISTORY_FIELDS = Arrays.asList(History.class.getDeclaredFields());
+    final List<Field> SECURITY_HISTORY_FIELDS = Arrays.asList(SecurityHistoryDto.class.getDeclaredFields());
 
     PageRequest getPageRequest(Integer pageNo, Integer pageSize, String sort, final List<Field> FIELDS) {
         String sortBy = getSortAsString(sort);
