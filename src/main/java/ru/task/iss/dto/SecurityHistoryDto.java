@@ -6,6 +6,7 @@ package ru.task.iss.dto;
 
 import java.time.LocalDate;
 
+/* For retrieving some fields from DB */
 public class SecurityHistoryDto {
 
     private String secId;
@@ -17,7 +18,8 @@ public class SecurityHistoryDto {
     private Double open;
     private Double close;
 
-    public SecurityHistoryDto(String secId, String regnumber, String name, String emitentTitle, LocalDate tradeDate, Double numTrades, Double open, Double close) {
+    public SecurityHistoryDto(String secId, String regnumber, String name, String emitentTitle,
+                              LocalDate tradeDate, Double numTrades, Double open, Double close) {
         this.secId = secId;
         this.regnumber = regnumber;
         this.name = name;
