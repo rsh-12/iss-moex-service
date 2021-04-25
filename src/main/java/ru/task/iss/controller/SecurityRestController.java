@@ -32,15 +32,15 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Api(tags = "Securities")
 @RestController
 @RequestMapping("/api/securities")
-public class SecurityController {
+public class SecurityRestController {
 
     private final SecurityService securityService;
     private final SecurityModelAssembler assembler;
     private final SecurityHistoryDtoModelAssembler specificFieldsAssembler;
 
     @Autowired
-    public SecurityController(SecurityService securityService, SecurityModelAssembler assembler,
-                              SecurityHistoryDtoModelAssembler specificFieldsAssembler) {
+    public SecurityRestController(SecurityService securityService, SecurityModelAssembler assembler,
+                                  SecurityHistoryDtoModelAssembler specificFieldsAssembler) {
         this.securityService = securityService;
         this.assembler = assembler;
         this.specificFieldsAssembler = specificFieldsAssembler;
@@ -78,7 +78,7 @@ public class SecurityController {
                 .collect(Collectors.toList());
 
         return CollectionModel.of(securities,
-                linkTo(methodOn(SecurityController.class)
+                linkTo(methodOn(SecurityRestController.class)
                         .findAll(pageNo, pageSize, sort, emitentTitle)).withSelfRel());
     }
 
@@ -125,7 +125,7 @@ public class SecurityController {
                 .collect(Collectors.toList());
 
         return CollectionModel.of(securities,
-                linkTo(methodOn(SecurityController.class)
+                linkTo(methodOn(SecurityRestController.class)
                         .view(pageNo, pageSize, sort, emitentTitle, tradeDate)).withSelfRel());
     }
 

@@ -8,32 +8,38 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
 import ru.task.iss.entity.History;
 import ru.task.iss.repository.HistoryRepository;
+import ru.task.iss.repository.SecurityRepository;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 
 @Service
 public class HistoryXmlParser extends XmlParser {
 
+    private final SecurityRepository securityRepository;
     private final HistoryRepository historyRepository;
 
-    public HistoryXmlParser(HistoryRepository historyRepository) {
+    public HistoryXmlParser(HistoryRepository historyRepository, SecurityRepository securityRepository) {
         this.historyRepository = historyRepository;
+        this.securityRepository = securityRepository;
     }
 
     @Override
     void initEntity(Element element) {
         History history = new History();
 
+        String secid = element.getAttribute("SECID");
+        if (!securityRepository.existsBySecId(secid)) {
+            return;
+        }
+
         String tradeDate = element.getAttribute("TRADEDATE");
         if (isValid(tradeDate)) {
             history.setTradeDate(LocalDate.parse(tradeDate));
         }
 
+        history.setSecId(secid);
         history.setBoardId(element.getAttribute("BOARDID"));
         history.setShortname(element.getAttribute("SHORTNAME"));
-        history.setSecId(element.getAttribute("SECID"));
-
         history.setNumTrades(getCheckedValue(element, "NUMTRADES"));
         history.setValue(getCheckedValue(element, "VALUE"));
         history.setOpen(getCheckedValue(element, "OPEN"));

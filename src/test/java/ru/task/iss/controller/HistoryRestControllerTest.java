@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class HistoryControllerTest extends AbstractControllerClass {
+public class HistoryRestControllerTest extends AbstractControllerClass {
 
     /* Create a new History object - returns validation error, 404 */
     @Test

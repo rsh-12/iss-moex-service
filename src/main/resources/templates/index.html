@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+
+        <div class="d-flex justify-content-around mt-3 center">
+
+            <div class="security-import">
+                <div>
+                    <form>
+                        <label class="import-label" for="security">Import security.xml</label>
+                        <input name="security" type="file" id="security"><br>
+                        <button type="button" class="btn btn-outline-dark mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="history-import">
+                <div>
+                    <form>
+                        <label class="import-label" for="history">Import history.xml</label>
+                        <input class="upload" type="file" id="history"><br>
+                        <button type="button" class="btn btn-outline-dark mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

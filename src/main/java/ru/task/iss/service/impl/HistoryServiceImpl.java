@@ -7,7 +7,6 @@ package ru.task.iss.service.impl;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,13 +28,13 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
     private static final Logger log = LoggerFactory.getLogger(HistoryServiceImpl.class);
 
     private final HistoryRepository historyRepository;
+    private final SecurityRepository securityRepository;
     private final ModelMapper mapper;
 
-    @Autowired
-    private SecurityRepository securityRepository;
-
-    public HistoryServiceImpl(HistoryRepository historyRepository, ModelMapper mapper) {
+    public HistoryServiceImpl(HistoryRepository historyRepository,
+                              SecurityRepository securityRepository, ModelMapper mapper) {
         this.historyRepository = historyRepository;
+        this.securityRepository = securityRepository;
         this.mapper = mapper;
     }
 
@@ -50,7 +49,7 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
     @Override
     public void importXmlData(MultipartFile multipartFile) {
         log.info("> parsing XML file (history)");
-        HistoryXmlParser historyXmlParser = new HistoryXmlParser(historyRepository);
+        HistoryXmlParser historyXmlParser = new HistoryXmlParser(historyRepository, securityRepository);
         historyXmlParser.parseAndSave(multipartFile);
     }
 
