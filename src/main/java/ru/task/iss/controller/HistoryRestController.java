@@ -29,12 +29,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Api(tags = "Histories")
 @RestController
 @RequestMapping("/api/histories")
-public class HistoryController {
+public class HistoryRestController {
 
     private final HistoryService historyService;
     private final HistoryModelAssembler assembler;
 
-    public HistoryController(HistoryService historyService, HistoryModelAssembler assembler) {
+    public HistoryRestController(HistoryService historyService, HistoryModelAssembler assembler) {
         this.historyService = historyService;
         this.assembler = assembler;
     }
@@ -71,7 +71,7 @@ public class HistoryController {
                 .collect(Collectors.toList());
 
         return CollectionModel.of(histories,
-                linkTo(methodOn(HistoryController.class)
+                linkTo(methodOn(HistoryRestController.class)
                         .findAll(pageNo, pageSize, sort, tradeDate)).withSelfRel());
     }
 

@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-public class SecurityControllerTest extends AbstractControllerClass {
+public class SecurityRestControllerTest extends AbstractControllerClass {
 
     /* Get the security by id - returns ok */
     @Test

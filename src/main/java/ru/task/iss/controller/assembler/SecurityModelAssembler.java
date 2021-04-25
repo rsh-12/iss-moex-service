@@ -7,7 +7,7 @@ package ru.task.iss.controller.assembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
-import ru.task.iss.controller.SecurityController;
+import ru.task.iss.controller.SecurityRestController;
 import ru.task.iss.entity.Security;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -20,9 +20,9 @@ public class SecurityModelAssembler
     @Override
     public EntityModel<Security> toModel(Security entity) {
         return EntityModel.of(entity,
-                linkTo(methodOn(SecurityController.class)
+                linkTo(methodOn(SecurityRestController.class)
                         .findOne(entity.getId())).withSelfRel(),
-                linkTo(methodOn(SecurityController.class)
+                linkTo(methodOn(SecurityRestController.class)
                         .findAll(null, null, null, null)).withRel("securities"));
     }
 }

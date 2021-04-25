@@ -7,7 +7,7 @@ package ru.task.iss.controller.assembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
-import ru.task.iss.controller.SecurityController;
+import ru.task.iss.controller.SecurityRestController;
 import ru.task.iss.dto.SecurityHistoryDto;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -20,7 +20,7 @@ public class SecurityHistoryDtoModelAssembler
     @Override
     public EntityModel<SecurityHistoryDto> toModel(SecurityHistoryDto entity) {
         return EntityModel.of(entity,
-                linkTo(methodOn(SecurityController.class)
+                linkTo(methodOn(SecurityRestController.class)
                         .view(null, null, null, null, null))
                         .withRel("view"));
     }

@@ -7,7 +7,7 @@ package ru.task.iss.controller.assembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
-import ru.task.iss.controller.HistoryController;
+import ru.task.iss.controller.HistoryRestController;
 import ru.task.iss.entity.History;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -20,9 +20,9 @@ public class HistoryModelAssembler
     @Override
     public EntityModel<History> toModel(History entity) {
         return EntityModel.of(entity,
-                linkTo(methodOn(HistoryController.class)
+                linkTo(methodOn(HistoryRestController.class)
                         .findOne(entity.getId())).withSelfRel(),
-                linkTo(methodOn(HistoryController.class)
+                linkTo(methodOn(HistoryRestController.class)
                         .findAll(null, null, null, null)).withRel("histories"));
     }
 }
