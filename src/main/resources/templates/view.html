@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/base}">
 <head>
     <title>View</title>
@@ -7,7 +8,65 @@
 
 <body>
 <div layout:fragment="content">
-    <h1>View</h1>
+    <h1 class="text-center">View</h1>
+
+    <div th:if="${!fields.empty}">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col"><a th:href="@{'/view/?page=' + ${page} + '&sort=secId' + ${reverseOrder}}">secid</a>
+                </th>
+                <th scope="col"><a
+                        th:href="@{'/view/?page=' + ${page} + '&sort=regnumber' + ${reverseOrder}}">regnumber</a></th>
+                <th scope="col"><a th:href="@{'/view/?page=' + ${page} + '&sort=name' + ${reverseOrder}}">name</a></th>
+                <th scope="col"><a th:href="@{'/view/?page=' + ${page} + '&sort=emitentTitle' + ${reverseOrder}}">emitent_title</a>
+                </th>
+                <th scope="col"><a
+                        th:href="@{'/view/?page=' + ${page} + '&sort=tradeDate' + ${reverseOrder}}">tradedate</a></th>
+                <th scope="col"><a
+                        th:href="@{'/view/?page=' + ${page} + '&sort=numTrades' + ${reverseOrder}}">numtrades</a></th>
+                <th scope="col"><a th:href="@{'/view/?page=' + ${page} + '&sort=open' + ${reverseOrder}}">open</a></th>
+                <th scope="col"><a th:href="@{'/view/?page=' + ${page} + '&sort=close' + ${reverseOrder}}">close</a>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="field : ${fields}">
+                <td th:text="${field.getSecId()}">secid</td>
+                <td th:text="${field.getRegnumber()}">regnumber</td>
+                <td th:text="${field.getName()}">name</td>
+                <td th:text="${field.getEmitentTitle()}">emitent_title</td>
+                <td th:text="${field.getTradeDate()}">tradedate</td>
+                <td th:text="${field.getNumTrades()}">numtrades</td>
+                <td th:text="${field.getOpen()}">open</td>
+                <td th:text="${field.getClose()}">close</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center">
+            <nav aria-label="...">
+                <div>
+                    <ul class="pagination">
+                        <li class="page-item" th:classappend="${page <= 1} ? disabled : ''">
+                            <a class="page-link"
+                               th:href="@{'/view/?page=' + ${page - 1} + '&sort='+${sort}}"
+                               tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link"
+                               th:href="@{'/view/?page=' + ${page + 1} + '&sort='+${sort}}"
+                            >Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+    </div>
+    <div th:unless="${!fields.empty}">
+        <h4 class="text-center">No fields found!</h4>
+    </div>
 </div>
 </body>
 </html>
