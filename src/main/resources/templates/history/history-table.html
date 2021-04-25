@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/base}">
 <head>
     <title>History table</title>
@@ -7,7 +8,60 @@
 
 <body>
 <div layout:fragment="content">
-    <h1>History table</h1>
+    <h1 class="text-center">History table</h1>
+
+    <div th:if="${!histories.empty}">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">
+                    <a th:href="@{'/history/?page=' + ${page} + '&sort=secId' + ${reverseOrder}}">secid</a></th>
+                <th scope="col">
+                    <a th:href="@{'/history/?page=' + ${page} + '&sort=boardId' + ${reverseOrder}}">board id</a>
+                </th>
+                <th scope="col">
+                    <a th:href="@{'/history/?page=' + ${page} + '&sort=shortname' + ${reverseOrder}}">short name</a>
+                </th>
+                <th scope="col">
+                    <a th:href="@{'/history/?page=' + ${page} + '&sort=tradeDate' + ${reverseOrder}}">trade date</a>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="history : ${histories}">
+                <td th:text="${history.getSecId()}">secid</td>
+                <td th:text="${history.getBoardId()}">boardid</td>
+                <td th:text="${history.getShortname()}">shortname</td>
+                <td th:text="${history.getTradeDate()}">tradedate</td>
+                <td align="center"><a href=""><i class="fas fa-trash-alt"></i></a></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center">
+            <nav aria-label="...">
+                <div>
+                    <ul class="pagination">
+                        <li class="page-item" th:classappend="${page <= 0} ? disabled : ''">
+                            <a class="page-link"
+                               th:href="@{'/history/?page=' + ${page - 1} + '&sort='+${sort}}"
+                               tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link"
+                               th:href="@{'/history/?page=' + ${page + 1} + '&sort='+${sort}}"
+                            >Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+    </div>
+    <div th:unless="${!histories.empty}">
+        <h4 class="text-center">No fields found!</h4>
+    </div>
+
 </div>
 </body>
 </html>
