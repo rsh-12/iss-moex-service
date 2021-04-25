@@ -110,7 +110,7 @@ public class SecurityController {
 
     /* Get a list of specific fields */
     @ApiOperation(value = "Get secid, regnumber, name, emitent_title, tradedate, numtrades, open, close")
-    @GetMapping
+    @GetMapping("/view")
     public CollectionModel<EntityModel<SecurityHistoryDto>> view(
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer pageNo,
             @RequestParam(value = "size", required = false, defaultValue = "10") Integer pageSize,
