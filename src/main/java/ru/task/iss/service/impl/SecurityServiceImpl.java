@@ -171,4 +171,21 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
         return securityRepository.findFields(pageRequest, emitentTitle, tradeDate).getContent();
     }
 
+    /**
+     * Returns a list of specific fields: secid, regnumber, name, emitent_title, tradedate, numtrades, open, close.
+     *
+     * @param pageNo   indicates the page number.
+     * @param pageSize sets the number of objects to return.
+     * @param sort     - sorting by field, case sensitive.
+     * @return list of specific fields.
+     */
+    @Override
+    public List<SecurityHistoryDto> findViewFields(Integer pageNo, Integer pageSize, String sort) {
+        log.info("> getting a list of specific fields");
+
+        PageRequest pageRequest = getPageRequest(pageNo, pageSize, sort, SECURITY_HISTORY_FIELDS);
+        return securityRepository.findFields(pageRequest).getContent();
+    }
+
+
 }
