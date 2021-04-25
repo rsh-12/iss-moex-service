@@ -13,13 +13,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.task.iss.controller.assembler.SecurityHistoryDtoModelAssembler;
 import ru.task.iss.controller.assembler.SecurityModelAssembler;
 import ru.task.iss.dto.SecurityDto;
+import ru.task.iss.dto.SecurityHistoryDto;
 import ru.task.iss.entity.Security;
 import ru.task.iss.service.SecurityService;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,11 +36,14 @@ public class SecurityController {
 
     private final SecurityService securityService;
     private final SecurityModelAssembler assembler;
+    private final SecurityHistoryDtoModelAssembler specificFieldsAssembler;
 
     @Autowired
-    public SecurityController(SecurityService securityService, SecurityModelAssembler assembler) {
+    public SecurityController(SecurityService securityService, SecurityModelAssembler assembler,
+                              SecurityHistoryDtoModelAssembler specificFieldsAssembler) {
         this.securityService = securityService;
         this.assembler = assembler;
+        this.specificFieldsAssembler = specificFieldsAssembler;
     }
 
     /* Import securities data from XML */
@@ -63,7 +69,7 @@ public class SecurityController {
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer pageNo,
             @RequestParam(value = "size", required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(value = "sort", required = false, defaultValue = "secId") String sort,
-            @RequestParam(value = "emitent_title", required = false) String emitentTitle
+            @RequestParam(value = "title", required = false) String emitentTitle
     ) {
 
         List<EntityModel<Security>> securities = securityService
@@ -99,6 +105,28 @@ public class SecurityController {
                                         @Valid @RequestBody SecurityDto securityDto) {
         securityService.update(id, securityDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    /* Get a list of specific fields */
+    @ApiOperation(value = "Get secid, regnumber, name, emitent_title, tradedate, numtrades, open, close")
+    @GetMapping
+    public CollectionModel<EntityModel<SecurityHistoryDto>> view(
+            @RequestParam(value = "page", required = false, defaultValue = "0") Integer pageNo,
+            @RequestParam(value = "size", required = false, defaultValue = "10") Integer pageSize,
+            @RequestParam(value = "sort", required = false, defaultValue = "secId") String sort,
+            @RequestParam(value = "title", required = false) String emitentTitle,
+            @RequestParam(value = "date", required = false) LocalDate tradeDate
+    ) {
+
+        List<EntityModel<SecurityHistoryDto>> securities = securityService
+                .findSpecificFields(pageNo, pageSize, sort, emitentTitle, tradeDate).stream()
+                .map(specificFieldsAssembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(securities,
+                linkTo(methodOn(SecurityController.class)
+                        .view(pageNo, pageSize, sort, emitentTitle, tradeDate)).withSelfRel());
     }
 
 }
