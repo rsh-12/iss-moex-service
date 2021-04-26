@@ -36,6 +36,7 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
     }
 
     /* Save the security to the DB */
+    @Override
     public void save(Security security) {
         log.info("> saving the security");
         securityRepository.save(security);
@@ -139,6 +140,12 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
     @Override
     public void update(Integer id, SecurityDto securityDto) {
         log.info("> updating a Security by id: " + id);
+
+        if (!securityDto.getName().matches("^[а-яА-Я0-9]+( [а-яА-Я0-9]+)*$")) {
+            log.warn("> name validation failed");
+            throw new CustomException("Validation error",
+                    "The name must contain only Cyrillic and numbers", HttpStatus.BAD_REQUEST);
+        }
 
         Security security = securityRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Not Found",
