@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.task.iss.entity.History;
+import ru.task.iss.entity.Security;
 import ru.task.iss.service.HistoryService;
 
 import java.util.List;
@@ -51,6 +52,12 @@ public class HistoryController {
         History history = historyService.findById(id);
         model.addAttribute("history", history);
         return "history/history-form";
+    }
+
+    @GetMapping("/new")
+    public String newHistory(Model model) {
+        model.addAttribute("history", new History());
+        return "security/security-form";
     }
 
 }
