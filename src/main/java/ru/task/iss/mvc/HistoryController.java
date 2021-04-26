@@ -6,10 +6,7 @@ package ru.task.iss.mvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.task.iss.entity.History;
 import ru.task.iss.service.HistoryService;
 
@@ -46,6 +43,14 @@ public class HistoryController {
     public String deleteSecurity(@RequestParam("id") Long id) {
         historyService.deleteById(id);
         return "redirect:/history";
+    }
+
+    @GetMapping("/{id}")
+    public String getHistory(@PathVariable("id") Long id,
+                             Model model) {
+        History history = historyService.findById(id);
+        model.addAttribute("history", history);
+        return "history/history-form";
     }
 
 }
