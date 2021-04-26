@@ -58,6 +58,7 @@ public class SecurityController {
     @GetMapping("/new")
     public String newSecurity(Model model) {
         model.addAttribute("security", new Security());
+        model.addAttribute("newObject", true);
         return "security/security-form";
     }
 
