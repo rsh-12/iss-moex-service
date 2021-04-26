@@ -33,15 +33,14 @@ public class MainController {
                           @RequestParam(value = "sort", required = false, defaultValue = "secId") String sort,
                           Model model) {
 
-        List<SecurityHistoryDto> fields = securityService
-                .findSpecificFields(pageNo, pageSize, sort, null, null);
+        List<SecurityHistoryDto> fields = securityService.findViewFields(pageNo, pageSize, sort);
 
         model.addAttribute("page", pageNo);
         model.addAttribute("size", pageSize);
         model.addAttribute("sort", sort);
         model.addAttribute("fields", fields);
         model.addAttribute("reverseOrder", sort.contains("asc") ? "" : ",asc");
-        model.addAttribute("order", sort.contains("asc") ? "asc" : "");
+
         return "view";
     }
 }

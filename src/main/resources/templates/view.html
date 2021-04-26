@@ -48,7 +48,7 @@
             <nav aria-label="...">
                 <div>
                     <ul class="pagination">
-                        <li class="page-item" th:classappend="${page <= 1} ? disabled : ''">
+                        <li class="page-item" th:classappend="${page <= 0} ? disabled : ''">
                             <a class="page-link"
                                th:href="@{'/view/?page=' + ${page - 1} + '&sort='+${sort}}"
                                tabindex="-1">Previous</a>

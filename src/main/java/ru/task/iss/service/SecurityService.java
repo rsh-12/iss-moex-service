@@ -11,11 +11,13 @@ import java.util.List;
 
 public interface SecurityService {
 
+    void save(Security security);
+
     void importXmlData(MultipartFile file) throws IOException;
 
     void create(Security security);
 
-    List<Security> findAllSecurities(Integer pageNo, Integer pageSize, String sort, String emitentId);
+    List<Security> findAllSecurities(Integer pageNo, Integer pageSize, String sort, String emitentTitle);
 
     Security findById(Integer id);
 
@@ -25,4 +27,6 @@ public interface SecurityService {
 
     List<SecurityHistoryDto> findSpecificFields(
             Integer pageNo, Integer pageSize, String sort, String emitentTitle, LocalDate tradeDate);
+
+    List<SecurityHistoryDto> findViewFields(Integer pageNo, Integer pageSize, String sort);
 }

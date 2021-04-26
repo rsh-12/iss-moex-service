@@ -36,6 +36,7 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
     }
 
     /* Save the security to the DB */
+    @Override
     public void save(Security security) {
         log.info("> saving the security");
         securityRepository.save(security);
@@ -140,6 +141,12 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
     public void update(Integer id, SecurityDto securityDto) {
         log.info("> updating a Security by id: " + id);
 
+        if (!securityDto.getName().matches("^[а-яА-Я0-9]+( [а-яА-Я0-9]+)*$")) {
+            log.warn("> name validation failed");
+            throw new CustomException("Validation error",
+                    "The name must contain only Cyrillic and numbers", HttpStatus.BAD_REQUEST);
+        }
+
         Security security = securityRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Not Found",
                         "Security not found: " + id, HttpStatus.NOT_FOUND));
@@ -170,5 +177,22 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
         }
         return securityRepository.findFields(pageRequest, emitentTitle, tradeDate).getContent();
     }
+
+    /**
+     * Returns a list of specific fields: secid, regnumber, name, emitent_title, tradedate, numtrades, open, close.
+     *
+     * @param pageNo   indicates the page number.
+     * @param pageSize sets the number of objects to return.
+     * @param sort     - sorting by field, case sensitive.
+     * @return list of specific fields.
+     */
+    @Override
+    public List<SecurityHistoryDto> findViewFields(Integer pageNo, Integer pageSize, String sort) {
+        log.info("> getting a list of specific fields");
+
+        PageRequest pageRequest = getPageRequest(pageNo, pageSize, sort, SECURITY_HISTORY_FIELDS);
+        return securityRepository.findFields(pageRequest).getContent();
+    }
+
 
 }
