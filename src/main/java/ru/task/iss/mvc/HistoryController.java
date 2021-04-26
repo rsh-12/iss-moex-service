@@ -6,11 +6,13 @@ package ru.task.iss.mvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.task.iss.entity.History;
 import ru.task.iss.entity.Security;
 import ru.task.iss.service.HistoryService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -57,7 +59,19 @@ public class HistoryController {
     @GetMapping("/new")
     public String newHistory(Model model) {
         model.addAttribute("history", new History());
-        return "security/security-form";
+        return "history/history-form";
+    }
+
+    @PostMapping("/save")
+    public String saveHistory(@Valid @ModelAttribute History history,
+                              BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "history/history-form";
+        }
+
+        historyService.save(history);
+        return "redirect:/history";
     }
 
 }
