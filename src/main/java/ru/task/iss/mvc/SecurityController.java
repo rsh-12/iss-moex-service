@@ -24,9 +24,9 @@ public class SecurityController {
 
     @GetMapping
     public String getSecurities(@RequestParam(value = "page", required = false, defaultValue = "0") Integer pageNo,
-                          @RequestParam(value = "size", required = false, defaultValue = "10") Integer pageSize,
-                          @RequestParam(value = "sort", required = false, defaultValue = "secId") String sort,
-                          Model model) {
+                                @RequestParam(value = "size", required = false, defaultValue = "10") Integer pageSize,
+                                @RequestParam(value = "sort", required = false, defaultValue = "secId") String sort,
+                                Model model) {
 
         List<Security> securities = securityService.findAllSecurities(pageNo, pageSize, sort, null);
 
@@ -45,4 +45,11 @@ public class SecurityController {
         return "redirect:/security";
     }
 
+    @GetMapping("/{id}")
+    public String getSecurity(@PathVariable("id") Integer id,
+                              Model model) {
+        Security security = securityService.findById(id);
+        model.addAttribute("security", security);
+        return "security/security-form";
+    }
 }
