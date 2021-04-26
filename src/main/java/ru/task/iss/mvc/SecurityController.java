@@ -55,6 +55,12 @@ public class SecurityController {
         return "security/security-form";
     }
 
+    @GetMapping("/new")
+    public String newSecurity(Model model) {
+        model.addAttribute("security", new Security());
+        return "security/security-form";
+    }
+
     @PostMapping("/save")
     public String saveSecurity(@Valid @ModelAttribute Security security,
                                BindingResult bindingResult) {
