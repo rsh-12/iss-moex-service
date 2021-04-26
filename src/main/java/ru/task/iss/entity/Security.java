@@ -9,6 +9,7 @@ import org.springframework.hateoas.server.core.Relation;
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
@@ -20,6 +21,7 @@ public class Security {
 
     @Column(unique = true, nullable = false)
     @Digits(integer = 12, fraction = 0)
+    @NotNull
     private Integer id;
 
     @Id
