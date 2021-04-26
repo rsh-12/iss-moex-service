@@ -17,11 +17,22 @@
 
         <div class="d-flex justify-content-center">
             <div class="inputs">
+
+                <div>
+                    <label class="input-label" for="id">id</label><br>
+                    <div class="c-error"
+                         th:if="${#fields.hasErrors('id')}"
+                         th:text="'Invalid data'"
+                         th:errors="*{id}">secId error
+                    </div>
+                    <input class="form-control" th:field="*{id}"
+                           id="id" required type="number">
+                </div>
+
                 <div>
                     <label class="input-label" for="sec-id">sec id</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('secId')}"
-                         th:style="${#fields.hasErrors('secId') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{secId}">secId error
                     </div>
                     <input class="form-control" th:field="*{secId}"
@@ -32,7 +43,6 @@
                     <label class="input-label" for="short-name">short name</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('shortname')}"
-                         th:style="${#fields.hasErrors('shortname') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{shortname}">shortname error
                     </div>
                     <input class="form-control" th:field="*{shortname}"
@@ -44,7 +54,6 @@
                     <label class="input-label" for="reg-number">reg number</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('regnumber')}"
-                         th:style="${#fields.hasErrors('regnumber') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{regnumber}">regnumber error
                     </div>
                     <input th:field="*{regnumber}" maxlength="64" class="form-control" id="reg-number" type="text">
@@ -54,7 +63,6 @@
                     <label class="input-label" for="name">name</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('name')}"
-                         th:style="${#fields.hasErrors('name') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{name}">name error
                     </div>
                     <input th:field="*{name}" maxlength="128" class="form-control" id="name" type="text">
@@ -64,7 +72,6 @@
                     <label class="input-label" for="isin">isin</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('isin')}"
-                         th:style="${#fields.hasErrors('isin') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{isin}">isin error
                     </div>
                     <input th:field="*{isin}" maxlength="128" class="form-control" id="isin" type="text">
@@ -74,7 +81,6 @@
                     <label class="input-label" for="is-traded">is traded</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('isTraded')}"
-                         th:style="${#fields.hasErrors('isTraded') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{isTraded}">isTraded error
                     </div>
                     <input th:field="*{isTraded}" class="form-control"
@@ -85,32 +91,30 @@
                     <label class="input-label" for="emitent-id">emitent id</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('emitentId')}"
-                         th:style="${#fields.hasErrors('emitentId') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{emitentId}">emitentId error
                     </div>
                     <input th:field="*{emitentId}"
                            class="form-control" id="emitent-id" type="number">
                 </div>
 
+            </div>
+
+            <div class="inputs">
                 <div>
                     <label class="input-label" for="emitent-title">emitent title</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('emitentTitle')}"
-                         th:style="${#fields.hasErrors('emitentTitle') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{emitentTitle}">emitentTitle error
                     </div>
                     <input th:field="*{emitentTitle}"
                            th:maxlength="128"
                            class="form-control" id="emitent-title" type="text">
                 </div>
-            </div>
 
-            <div class="inputs">
                 <div>
                     <label class="input-label" for="emitent-inn">emitent inn</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('emitentInn')}"
-                         th:style="${#fields.hasErrors('emitentInn') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{emitentInn}">emitentInn error
                     </div>
                     <input th:field="*{emitentInn}"
@@ -122,7 +126,6 @@
                     <label class="input-label" for="emitent-okpo">emitent okpo</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('emitentOkpo')}"
-                         th:style="${#fields.hasErrors('emitentOkpo') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{emitentOkpo}">emitentOkpo error
                     </div>
                     <input th:field="*{emitentOkpo}"
@@ -134,7 +137,6 @@
                     <label class="input-label" for="gos-reg">gos reg</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('gosreg')}"
-                         th:style="${#fields.hasErrors('gosreg') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{gosreg}">gosreg error
                     </div>
                     <input th:field="*{gosreg}" maxlength="128" class="form-control" id="gos-reg" type="text">
@@ -144,7 +146,6 @@
                     <label class="input-label" for="type">type</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('type')}"
-                         th:style="${#fields.hasErrors('type') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{type}">type error
                     </div>
                     <input th:field="*{type}" maxlength="64" class="form-control" id="type" type="text">
@@ -154,7 +155,6 @@
                     <label class="input-label" for="group">group</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('group')}"
-                         th:style="${#fields.hasErrors('group') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{group}">group error
                     </div>
                     <input th:field="*{group}" maxlength="64" class="form-control" id="group" type="text">
@@ -164,7 +164,6 @@
                     <label class="input-label" for="primary-board-id">primary board id</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('primaryBoardid')}"
-                         th:style="${#fields.hasErrors('primaryBoardid') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{primaryBoardid}">primaryBoardid error
                     </div>
                     <input th:field="*{primaryBoardid}" maxlength="4"
@@ -175,7 +174,6 @@
                     <label class="input-label" for="market-price-board-id">market price board id</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('marketPriceBoardid')}"
-                         th:style="${#fields.hasErrors('marketPriceBoardid') ? 'visibility:hidden' : 'visibility:visible'}"
                          th:errors="*{marketPriceBoardid}">marketPriceBoardid error
                     </div>
                     <input th:field="*{marketPriceBoardid}" maxlength="4" class="form-control"
