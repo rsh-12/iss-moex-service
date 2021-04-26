@@ -40,7 +40,7 @@ public class HistoryController {
     }
 
     @PostMapping("/delete")
-    public String deleteSecurity(@RequestParam("id") Long id) {
+    public String deleteHistory(@RequestParam("id") Long id) {
         historyService.deleteById(id);
         return "redirect:/history";
     }
