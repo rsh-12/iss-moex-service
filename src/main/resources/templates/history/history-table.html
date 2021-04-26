@@ -14,8 +14,8 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th scope="col">
-                    <a th:href="@{'/history/?page=' + ${page} + '&sort=secId' + ${reverseOrder}}">secid</a></th>
+                <th scope="col"><a th:href="@{'/history/?page=' + ${page} + '&sort=id' + ${reverseOrder}}">id</a></th>
+                <th scope="col"><a th:href="@{'/history/?page=' + ${page} + '&sort=secId' + ${reverseOrder}}">secid</a></th>
                 <th scope="col">
                     <a th:href="@{'/history/?page=' + ${page} + '&sort=boardId' + ${reverseOrder}}">board id</a>
                 </th>
@@ -25,11 +25,13 @@
                 <th scope="col">
                     <a th:href="@{'/history/?page=' + ${page} + '&sort=tradeDate' + ${reverseOrder}}">trade date</a>
                 </th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="history : ${histories}">
-                <td><a th:text="${history.getSecId()}" th:href="@{/history/{id}(id=${history.getId()})}">secid</a></td>
+                <td><a th:text="${history.getId()}" th:href="@{/history/{id}(id=${history.getId()})}">id</a></td>
+                <td th:text="${history.getSecId()}">secid</td>
                 <td th:text="${history.getBoardId()}">boardid</td>
                 <td th:text="${history.getShortname()}">shortname</td>
                 <td th:text="${history.getTradeDate()}">tradedate</td>
