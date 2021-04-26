@@ -10,104 +10,164 @@
     <h1 class="text-center mb-3">History form</h1>
 
     <div>
-        <form class="object-form container-fluid" action="">
+        <form class="object-form container-fluid" th:object="${history}" method="post" th:action="@{/security/save}">
+
+            <input type="hidden" th:field="*{id}">
+
             <div class="d-flex justify-content-center">
                 <div class="inputs">
                     <div>
                         <label class="input-label" for="board-id">board id</label><br>
-                        <input class="form-control" id="board-id" type="text">
+                        <div class="c-error"
+                             th:if="${#fields.hasErrors('boardId')}"
+                             th:errors="*{boardId}">boardId error
+                        </div>
+                        <input th:field="*{boardId}"
+                               class="form-control" id="board-id" type="text">
                     </div>
 
                     <div>
                         <label class="input-label" for="trade-date">trade date</label><br>
-                        <input class="form-control" id="trade-date" type="date">
+                        <div class="c-error"
+                             th:if="${#fields.hasErrors('tradeDate')}"
+                             th:errors="*{tradeDate}">tradeDate error
+                        </div>
+                        <input
+                                th:field="*{tradeDate}"
+                                class="form-control" id="trade-date" type="date">
                     </div>
 
                     <div>
                         <label class="input-label" for="short-name">short name</label><br>
-                        <input class="form-control" id="short-name" type="text">
+                        <div class="c-error" th:if="${#fields.hasErrors('shortname')}" th:errors="*{shortname}">
+                            shortname error
+                        </div>
+                        <input th:field="*{shortname}" class="form-control" id="short-name" type="text">
                     </div>
 
                     <div>
                         <label class="input-label" for="sec-id">sec id</label><br>
-                        <input class="form-control" id="sec-id" type="text">
+                        <div class="c-error"
+                             th:if="${#fields.hasErrors('secId')}"
+                             th:errors="*{secId}">secId error
+                        </div>
+                        <input th:field="*{secId}" class="form-control" id="sec-id" type="text">
                     </div>
 
                     <div>
                         <label class="input-label" for="num-trades">num trades</label><br>
-                        <input class="form-control" id="num-trades" type="number">
+                        <div class="c-error"
+                             th:if="${#fields.hasErrors('numTrades')}"
+                             th:errors="*{numTrades}">numTrades error
+                        </div>
+                        <input th:field="*{numTrades}" class="form-control" id="num-trades" type="number">
                     </div>
 
                     <div>
                         <label class="input-label" for="value">value</label><br>
-                        <input class="form-control" id="value" type="number">
+                        <div class="c-error"
+                             th:if="${#fields.hasErrors('value')}"
+                             th:errors="*{value}">value error
+                        </div>
+                        <input th:field="*{value}" class="form-control" id="value" type="number">
                     </div>
 
                     <div>
                         <label class="input-label" for="open">open</label><br>
-                        <input class="form-control" id="open" type="number">
+                        <div class="c-error"
+                             th:if="${#fields.hasErrors('open')}"
+                             th:errors="*{open}">open error
+                        </div>
+                        <input th:field="*{open}" class="form-control" id="open" type="number">
                     </div>
 
                     <div>
-                        <label class="input-label" for="close">low</label><br>
-                        <input class="form-control" type="number">
+                        <label class="input-label" for="low">low</label><br>
+                        <div class="c-error"
+                             th:if="${#fields.hasErrors('low')}"
+                             th:errors="*{low}">low error
+                        </div>
+                        <input th:field="*{low}" class="form-control" id="low" type="number">
                     </div>
 
                     <div>
                         <label class="input-label" for="high">high</label><br>
-                        <input class="form-control" id="high" type="number">
+                        <div class="c-error"
+                             th:if="${#fields.hasErrors('high')}"
+                             th:errors="*{high}">high error
+                        </div>
+                        <input th:field="*{high}" class="form-control" id="high" type="number">
                     </div>
 
                     <div>
                         <label class="input-label" for="legal-close-price">legal close price</label><br>
-                        <input class="form-control" id="legal-close-price" type="number">
+                        <div class="c-error"
+                             th:if="${#fields.hasErrors('legalClosePrice')}"
+                             th:errors="*{legalClosePrice}">legalClosePrice error
+                        </div>
+                        <input th:field="*{legalClosePrice}" class="form-control" id="legal-close-price" type="number">
+                    </div>
+
+                    <div>
+                        <label class="input-label" for="market-price3-trades-value">market price3 trades
+                            value</label><br>
+                        <div class="c-error"
+                             th:if="${#fields.hasErrors('marketPrice3TradesValue')}"
+                             th:errors="*{marketPrice3TradesValue}">marketPrice3TradesValue error
+                        </div>
+                        <input th:field="*{marketPrice3TradesValue}" class="form-control"
+                               id="market-price3-trades-value" type="number">
                     </div>
                 </div>
 
                 <div class="inputs">
                     <div>
                         <label class="input-label" for="wa-price">wa price</label><br>
-                        <input class="form-control" id="wa-price" type="number">
+                        <div class="c-error"
+                             th:if="${#fields.hasErrors('waPrice')}"
+                             th:errors="*{waPrice}">waPrice error
+                        </div>
+                        <input th:field="*{waPrice}" class="form-control" id="wa-price" type="number">
                     </div>
 
                     <div>
                         <label class="input-label" for="close">close</label><br>
-                        <input class="form-control" id="close" type="number">
+                        <input th:field="*{close}" class="form-control" id="close" type="number">
                     </div>
 
                     <div>
                         <label class="input-label" for="volume">volume</label><br>
-                        <input class="form-control" id="volume" type="number">
+                        <input th:field="*{volume}" class="form-control" id="volume" type="number">
                     </div>
 
                     <div>
                         <label class="input-label" for="market-price2">market price2</label><br>
-                        <input class="form-control" id="market-price2" type="number">
+                        <input th:field="*{marketPrice2}" class="form-control" id="market-price2" type="number">
                     </div>
 
                     <div>
                         <label class="input-label" for="market-price3">market price3</label><br>
-                        <input class="form-control" id="market-price3" type="number">
+                        <input th:field="*{marketPrice3}" class="form-control" id="market-price3" type="number">
                     </div>
 
                     <div>
                         <label class="input-label" for="admitted-quote">admitted quote</label><br>
-                        <input class="form-control" id="admitted-quote" type="number">
+                        <input th:field="*{admittedQuote}" class="form-control" id="admitted-quote" type="number">
                     </div>
 
                     <div>
                         <label class="input-label" for="mp2-val-trd">mp2 val trd</label><br>
-                        <input class="form-control" id="mp2-val-trd" type="number">
+                        <input th:field="*{mp2ValTrd}" class="form-control" id="mp2-val-trd" type="number">
                     </div>
 
                     <div>
                         <label class="input-label" for="admitted-value">admitted value</label><br>
-                        <input class="form-control" id="admitted-value" type="number">
+                        <input th:field="*{admittedValue}" class="form-control" id="admitted-value" type="number">
                     </div>
 
                     <div>
                         <label class="input-label" for="wa-val">wa val</label><br>
-                        <input class="form-control" id="wa-val" type="number">
+                        <input th:field="*{waVal}" class="form-control" id="wa-val" type="number">
                     </div>
 
                     <div>
