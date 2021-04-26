@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface SecurityService {
 
+    void save(Security security);
+
     void importXmlData(MultipartFile file) throws IOException;
 
     void create(Security security);
