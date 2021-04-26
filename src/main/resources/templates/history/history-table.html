@@ -29,7 +29,7 @@
             </thead>
             <tbody>
             <tr th:each="history : ${histories}">
-                <td th:text="${history.getSecId()}">secid</td>
+                <td><a th:text="${history.getSecId()}" th:href="@{/history/{id}(id=${history.getId()})}">secid</a></td>
                 <td th:text="${history.getBoardId()}">boardid</td>
                 <td th:text="${history.getShortname()}">shortname</td>
                 <td th:text="${history.getTradeDate()}">tradedate</td>
