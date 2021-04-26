@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.task.iss.entity.History;
-import ru.task.iss.entity.Security;
 import ru.task.iss.service.HistoryService;
 
 import javax.validation.Valid;
