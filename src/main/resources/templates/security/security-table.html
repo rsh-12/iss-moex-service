@@ -10,12 +10,18 @@
 <div layout:fragment="content">
     <h1 class="text-center">Security table</h1>
 
+    <a th:href="@{/security/new}">
+        <button class="btn btn-outline-dark mb-3">NEW</button>
+    </a>
     <div th:if="${!securities.empty}">
         <table class="table table-bordered">
             <thead>
             <tr>
                 <th scope="col">
                     <a th:href="@{'/security/?page=' + ${page} + '&sort=secId' + ${reverseOrder}}">secid</a></th>
+                <th scope="col">
+                    <a th:href="@{'/security/?page=' + ${page} + '&sort=id' + ${reverseOrder}}">id</a>
+                </th>
                 <th scope="col">
                     <a th:href="@{'/security/?page=' + ${page} + '&sort=regnumber' + ${reverseOrder}}">regnumber</a>
                 </th>
@@ -31,6 +37,7 @@
             <tr th:each="security : ${securities}">
                 <td><a th:href="@{/security/{id}(id=${security.getId()})}"
                        th:text="${security.getSecId()}">secid</a></td>
+                <td th:text="${security.getId()}">id</td>
                 <td th:text="${security.getRegnumber()}">regnumber</td>
                 <td th:text="${security.getShortname()}">shortname</td>
                 <td th:text="${security.getIsin()}">isin</td>
