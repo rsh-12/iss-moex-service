@@ -29,7 +29,8 @@
             </thead>
             <tbody>
             <tr th:each="security : ${securities}">
-                <td th:text="${security.getSecId()}">secid</td>
+                <td><a th:href="@{/security/{id}(id=${security.getId()})}"
+                       th:text="${security.getSecId()}">secid</a></td>
                 <td th:text="${security.getShortname()}">shortname</td>
                 <td th:text="${security.getRegnumber()}">regnumber</td>
                 <td th:text="${security.getIsin()}">isin</td>
