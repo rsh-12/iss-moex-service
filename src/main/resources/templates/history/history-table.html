@@ -10,6 +10,10 @@
 <div layout:fragment="content">
     <h1 class="text-center">History table</h1>
 
+    <a th:href="@{/history/new}">
+        <button class="btn btn-outline-dark mb-3">NEW</button>
+    </a>
+
     <div th:if="${!histories.empty}">
         <table class="table table-bordered">
             <thead>
