@@ -13,12 +13,10 @@
           th:action="@{/security/save}"
           th:object="${security}" method="post">
 
-        <input type="hidden" th:field="*{id}">
-
         <div class="d-flex justify-content-center">
             <div class="inputs">
 
-                <div>
+                <div th:if="${newObject}">
                     <label class="input-label" for="id">id</label><br>
                     <div class="c-error"
                          th:if="${#fields.hasErrors('id')}"
@@ -27,6 +25,10 @@
                     </div>
                     <input class="form-control" th:field="*{id}"
                            id="id" required type="number">
+                </div>
+
+                <div th:unless="${newObject}">
+                    <input type="hidden" th:field="*{id}">
                 </div>
 
                 <div>
