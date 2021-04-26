@@ -6,10 +6,12 @@ package ru.task.iss.mvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.task.iss.entity.Security;
 import ru.task.iss.service.SecurityService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -51,5 +53,17 @@ public class SecurityController {
         Security security = securityService.findById(id);
         model.addAttribute("security", security);
         return "security/security-form";
+    }
+
+    @PostMapping("/save")
+    public String saveSecurity(@Valid @ModelAttribute Security security,
+                               BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "security/security-form";
+        }
+
+        securityService.save(security);
+        return "redirect:/security";
     }
 }
