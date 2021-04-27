@@ -18,6 +18,7 @@ import ru.task.iss.controller.assembler.SecurityModelAssembler;
 import ru.task.iss.dto.SecurityDto;
 import ru.task.iss.dto.SecurityHistoryDto;
 import ru.task.iss.entity.Security;
+import ru.task.iss.exception.CustomException;
 import ru.task.iss.service.SecurityService;
 
 import javax.validation.Valid;
@@ -50,6 +51,11 @@ public class SecurityRestController {
     @ApiOperation(value = "Import XML data")
     @PostMapping(value = "/import")
     public ResponseEntity<String> importData(@RequestParam("file") MultipartFile file) throws IOException {
+
+        if (file.isEmpty()) {
+            throw new CustomException("Please select a file to upload", HttpStatus.BAD_REQUEST);
+        }
+
         securityService.importXmlData(file);
         return ResponseEntity.ok("Successfully processed");
     }
