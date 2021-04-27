@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.task.iss.controller.assembler.HistoryModelAssembler;
 import ru.task.iss.dto.HistoryDto;
 import ru.task.iss.entity.History;
+import ru.task.iss.exception.CustomException;
 import ru.task.iss.service.HistoryService;
 
 import javax.validation.Valid;
@@ -43,6 +44,11 @@ public class HistoryRestController {
     @ApiOperation(value = "Import XML data")
     @PostMapping(value = "/import")
     public ResponseEntity<String> importData(@RequestParam("file") MultipartFile file) throws IOException {
+
+        if (file.isEmpty()) {
+            throw new CustomException("Please select a file to upload", HttpStatus.BAD_REQUEST);
+        }
+
         historyService.importXmlData(file);
         return ResponseEntity.ok("Successfully processed");
     }

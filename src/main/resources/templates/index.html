@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/base}">
 <head>
     <title>Home</title>
@@ -8,30 +8,30 @@
 <body>
 <div layout:fragment="content">
 
-        <div class="d-flex justify-content-around mt-3 center">
+    <div class="d-flex justify-content-around mt-3 center">
 
-            <div class="security-import">
-                <div>
-                    <form>
-                        <label class="import-label" for="security">Import security.xml</label>
-                        <input name="security" type="file" id="security"><br>
-                        <button type="button" class="btn btn-outline-dark mt-3">Submit</button>
-                    </form>
-                </div>
+        <div class="security-import">
+            <div>
+                <form method="post" th:action="@{/security/import}" enctype="multipart/form-data">
+                    <label class="import-label" for="security">Import security.xml</label>
+                    <input required th:name="file" name="security" type="file" id="security"><br>
+                    <button type="submit" class="btn btn-outline-dark mt-3">Submit</button>
+                </form>
             </div>
-
-
-            <div class="history-import">
-                <div>
-                    <form>
-                        <label class="import-label" for="history">Import history.xml</label>
-                        <input class="upload" type="file" id="history"><br>
-                        <button type="button" class="btn btn-outline-dark mt-3">Submit</button>
-                    </form>
-                </div>
-            </div>
-
         </div>
+
+
+        <div class="history-import">
+            <div>
+                <form method="post" th:action="@{/history/import}" enctype="multipart/form-data">
+                    <label class="import-label" for="history">Import history.xml</label>
+                    <input required th:name="file" class="upload" type="file" id="history"><br>
+                    <button type="submit" class="btn btn-outline-dark mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+
     </div>
+</div>
 </body>
 </html>

@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.task.iss.entity.Security;
 import ru.task.iss.service.SecurityService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -71,6 +73,16 @@ public class SecurityController {
         }
 
         securityService.save(security);
+        return "redirect:/security";
+    }
+
+    @PostMapping(value = "/import")
+    public String importData(@RequestParam("file") MultipartFile file) throws IOException {
+        if (file.isEmpty()) {
+            throw new RuntimeException("Please select a file to upload");
+        }
+
+        securityService.importXmlData(file);
         return "redirect:/security";
     }
 }
