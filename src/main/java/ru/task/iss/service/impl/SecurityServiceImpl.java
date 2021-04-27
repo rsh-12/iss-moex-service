@@ -141,7 +141,7 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
     public void update(Integer id, SecurityDto securityDto) {
         log.info("> updating a Security by id: " + id);
 
-        if (!securityDto.getName().matches("^[а-яА-Я0-9]+( [а-яА-Я0-9]+)*$")) {
+        if (securityDto.getName() == null || !securityDto.getName().matches("^[а-яА-Я0-9]+( [а-яА-Я0-9]+)*$")) {
             log.warn("> name validation failed");
             throw new CustomException("Validation error",
                     "The name must contain only Cyrillic and numbers", HttpStatus.BAD_REQUEST);
