@@ -10,7 +10,8 @@
     <h1 class="text-center mb-3">History form</h1>
 
     <div>
-        <form class="object-form container-fluid" th:object="${history}" method="post" th:action="@{/history/save}">
+        <form class="object-form container-fluid" th:object="${history}" method="post"
+              th:action="@{/history/save}">
 
             <input type="hidden" th:field="*{id}">
 
@@ -51,7 +52,7 @@
                              th:if="${#fields.hasErrors('secId')}"
                              th:errors="*{secId}">secId error
                         </div>
-                        <input th:field="*{secId}" class="form-control" id="sec-id" type="text">
+                        <input th:field="*{secId}" required class="form-control" id="sec-id" type="text">
                     </div>
 
                     <div>
