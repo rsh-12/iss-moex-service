@@ -24,4 +24,6 @@ public interface HistoryService {
 
     /* Save the history to the DB */
     void save(History history);
+
+    void saveMvc(History history);
 }
