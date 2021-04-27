@@ -44,6 +44,7 @@ public class SecurityRestControllerTest extends AbstractControllerClass {
 
         SecurityDto securityDto = new SecurityDto();
         securityDto.setShortname("shortname");
+        securityDto.setName("имя организации");
 
         mvc.perform(get(SECURITIES + SECURITY_ID))
                 .andExpect(status().isOk())
@@ -59,6 +60,7 @@ public class SecurityRestControllerTest extends AbstractControllerClass {
         mvc.perform(get(SECURITIES + SECURITY_ID))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("shortname", containsString("shortname")))
+                .andExpect(jsonPath("name", containsString("имя организации")))
                 .andDo(print());
     }
 }
