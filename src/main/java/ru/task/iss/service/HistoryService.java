@@ -21,4 +21,7 @@ public interface HistoryService {
     void deleteById(Long id);
 
     void update(Long id, HistoryDto historyDto);
+
+    /* Save the history to the DB */
+    void save(History history);
 }

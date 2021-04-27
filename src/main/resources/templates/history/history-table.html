@@ -10,12 +10,16 @@
 <div layout:fragment="content">
     <h1 class="text-center">History table</h1>
 
+    <a th:href="@{/history/new}">
+        <button class="btn btn-outline-dark mb-3">NEW</button>
+    </a>
+
     <div th:if="${!histories.empty}">
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th scope="col">
-                    <a th:href="@{'/history/?page=' + ${page} + '&sort=secId' + ${reverseOrder}}">secid</a></th>
+                <th scope="col"><a th:href="@{'/history/?page=' + ${page} + '&sort=id' + ${reverseOrder}}">id</a></th>
+                <th scope="col"><a th:href="@{'/history/?page=' + ${page} + '&sort=secId' + ${reverseOrder}}">secid</a></th>
                 <th scope="col">
                     <a th:href="@{'/history/?page=' + ${page} + '&sort=boardId' + ${reverseOrder}}">board id</a>
                 </th>
@@ -25,10 +29,12 @@
                 <th scope="col">
                     <a th:href="@{'/history/?page=' + ${page} + '&sort=tradeDate' + ${reverseOrder}}">trade date</a>
                 </th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="history : ${histories}">
+                <td><a th:text="${history.getId()}" th:href="@{/history/{id}(id=${history.getId()})}">id</a></td>
                 <td th:text="${history.getSecId()}">secid</td>
                 <td th:text="${history.getBoardId()}">boardid</td>
                 <td th:text="${history.getShortname()}">shortname</td>

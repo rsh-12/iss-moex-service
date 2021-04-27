@@ -6,13 +6,12 @@ package ru.task.iss.mvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import ru.task.iss.entity.History;
 import ru.task.iss.service.HistoryService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -43,8 +42,34 @@ public class HistoryController {
     }
 
     @PostMapping("/delete")
-    public String deleteSecurity(@RequestParam("id") Long id) {
+    public String deleteHistory(@RequestParam("id") Long id) {
         historyService.deleteById(id);
+        return "redirect:/history";
+    }
+
+    @GetMapping("/{id}")
+    public String getHistory(@PathVariable("id") Long id,
+                             Model model) {
+        History history = historyService.findById(id);
+        model.addAttribute("history", history);
+        return "history/history-form";
+    }
+
+    @GetMapping("/new")
+    public String newHistory(Model model) {
+        model.addAttribute("history", new History());
+        return "history/history-form";
+    }
+
+    @PostMapping("/save")
+    public String saveHistory(@Valid @ModelAttribute History history,
+                              BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "history/history-form";
+        }
+
+        historyService.save(history);
         return "redirect:/history";
     }
 

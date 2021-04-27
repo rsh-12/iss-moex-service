@@ -11,6 +11,7 @@ import org.springframework.hateoas.server.core.Relation;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -31,7 +32,8 @@ public class History {
 
     private String shortname;
 
-    @Column(name = "sec_id_fk", insertable = false, updatable = false)
+    @NotNull
+    @Column(name = "sec_id_fk", nullable = false)
     private String secId;
 
     @Digits(integer = 12, fraction = 4)
@@ -85,7 +87,7 @@ public class History {
     private Double waVal;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sec_id_fk", referencedColumnName = "sec_id")
+    @JoinColumn(name = "sec_id_fk", referencedColumnName = "sec_id", insertable = false, updatable = false)
     private Security security;
 
     // constructor
@@ -268,7 +270,8 @@ public class History {
     @Override
     public String toString() {
         return "History{" +
-                "boardId='" + boardId + '\'' +
+                "id=" + id +
+                ", shortname='" + shortname + '\'' +
                 ", secId='" + secId + '\'' +
                 '}';
     }

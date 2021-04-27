@@ -138,6 +138,7 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
     }
 
     /* Save the history to the DB */
+    @Override
     public void save(History history) {
         String fk = history.getSecId();
         if (!securityRepository.existsBySecId(fk)) {

@@ -24,7 +24,7 @@
                          th:errors="*{id}">secId error
                     </div>
                     <input class="form-control" th:field="*{id}"
-                           id="id" required type="number">
+                           id="id" required type="text">
                 </div>
 
                 <div th:unless="${newObject}">
@@ -86,7 +86,7 @@
                          th:errors="*{isTraded}">isTraded error
                     </div>
                     <input th:field="*{isTraded}" class="form-control"
-                           id="is-traded" type="number">
+                           id="is-traded" type="text">
                 </div>
 
                 <div>
@@ -96,7 +96,7 @@
                          th:errors="*{emitentId}">emitentId error
                     </div>
                     <input th:field="*{emitentId}"
-                           class="form-control" id="emitent-id" type="number">
+                           class="form-control" id="emitent-id" type="text">
                 </div>
 
             </div>
