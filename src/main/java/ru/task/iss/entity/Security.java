@@ -36,6 +36,8 @@ public class Security {
     @Size(max = 128)
     private String regnumber;
 
+    @NotNull
+    @NotBlank
     @Size(max = 128)
     private String name;
 
