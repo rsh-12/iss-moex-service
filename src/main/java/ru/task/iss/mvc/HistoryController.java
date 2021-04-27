@@ -69,7 +69,7 @@ public class HistoryController {
             return "history/history-form";
         }
 
-        historyService.save(history);
+        historyService.saveMvc(history);
         return "redirect:/history";
     }
 

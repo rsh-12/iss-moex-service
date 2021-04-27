@@ -146,4 +146,13 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
         }
         historyRepository.save(history);
     }
+
+    @Override
+    public void saveMvc(History history) {
+        String fk = history.getSecId();
+        if (!securityRepository.existsBySecId(fk)) {
+            throw new RuntimeException("Primary Id Not Found: " + fk);
+        }
+        historyRepository.save(history);
+    }
 }
