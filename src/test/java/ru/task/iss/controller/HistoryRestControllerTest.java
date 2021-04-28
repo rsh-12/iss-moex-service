@@ -50,5 +50,11 @@ public class HistoryRestControllerTest extends AbstractControllerClass {
 
     /* Get History by id - returns 200 ok */
 
-
+    @Test
+    public void find_ShouldReturnHistoryById() throws Exception {
+        mvc.perform(get(HISTORIES + 1))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("shortname", containsString("АбрауДюрсо")))
+                .andDo(print());
+    }
 }
