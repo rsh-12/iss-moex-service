@@ -8,8 +8,7 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import ru.task.iss.dto.SecurityDto;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.containsStringIgnoringCase;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -19,12 +18,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class SecurityRestControllerTest extends AbstractControllerClass {
 
     /* Get 'view' fields */
-
     @Test
     public void view_ShouldReturnSpecificFields() throws Exception {
         mvc.perform(get(SECURITIES + "view"))
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    /* Get view fields - with param size */
+    @Test
+    public void viewWithSizeParam_ShouldReturnSpecificFields() throws Exception {
+        mvc.perform(get(SECURITIES + "view?size=1"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("_embedded.fields.size()", is(1)))
+                .andReturn().getResponse()
     }
 
     /* Get all securities - returns max 10 elems by default */
