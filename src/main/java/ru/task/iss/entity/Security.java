@@ -4,6 +4,8 @@ package ru.task.iss.entity;
  * Time: 4:49 PM
  * */
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.hateoas.server.core.Relation;
 
 import javax.persistence.*;
@@ -77,7 +79,8 @@ public class Security {
     private String marketPriceBoardid;
 
     @OneToMany(mappedBy = "security", fetch = FetchType.LAZY,
-            cascade = {CascadeType.REMOVE})
+            cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<History> history;
 
     public Security() {
