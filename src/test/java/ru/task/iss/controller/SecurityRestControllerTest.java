@@ -36,11 +36,20 @@ public class SecurityRestControllerTest extends AbstractControllerClass {
 
     /* Get view fields - with param sort desc */
     @Test
-    public void viewWithSortParam_ShouldReturnSpecificFields() throws Exception {
+    public void viewWithSortDescParam_ShouldReturnSpecificFields() throws Exception {
         mvc.perform(get(SECURITIES + "view?sort=name"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(jsonPath("_embedded.fields[0].name", containsString("Абрау-Дюрсо ПАО ао")));
+    }
+
+    /* Get view fields - with param sort desc */
+    @Test
+    public void viewWithSortAscParam_ShouldReturnSpecificFields() throws Exception {
+        mvc.perform(get(SECURITIES + "view?sort=name,asc"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("_embedded.fields[0].name", containsString("Apple Inc.")));
     }
 
     /* Get all securities - returns max 10 elems by default */
