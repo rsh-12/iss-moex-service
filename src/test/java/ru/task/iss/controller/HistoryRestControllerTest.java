@@ -38,4 +38,17 @@ public class HistoryRestControllerTest extends AbstractControllerClass {
                 .andExpect(jsonPath("_embedded.histories[0].shortname", containsString("AKNX ETF")))
                 .andDo(print());
     }
+
+    /* Get all History objects - sort by boardId */
+    @Test
+    public void findAllSortByBoardid_ShouldReturnHistoryObjects() throws Exception {
+        mvc.perform(get("/api/histories?sort=boardId,asc"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("_embedded.histories[0].boardId", containsString("TQBR")))
+                .andDo(print());
+    }
+
+    /* Get History by id - returns 200 ok */
+
+
 }
