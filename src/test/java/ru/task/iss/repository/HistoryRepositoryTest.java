@@ -8,8 +8,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.task.iss.entity.History;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class HistoryRepositoryTest extends AbstractRepositoryClass {
 
@@ -50,7 +49,7 @@ public class HistoryRepositoryTest extends AbstractRepositoryClass {
         assertEquals("АбрауДюрсо", history.getShortname());
     }
 
-    /* Update Hisotry object */
+    /* Update History object */
     @Test
     public void update_ShouldUpdateHistory() {
         History history = repository.findById(2L).orElse(null);
@@ -63,5 +62,20 @@ public class HistoryRepositoryTest extends AbstractRepositoryClass {
         History updatedHistory = repository.findById(2L).orElse(null);
         assertNotNull(updatedHistory);
         assertEquals("new name", updatedHistory.getShortname());
+    }
+
+    /* Delete History by id */
+    @Test
+    public void delete_ShouldDeleteHistoryById() {
+        int before = repository.findAll().size();
+        assertTrue(repository.existsById(3L));
+
+        repository.deleteById(3L);
+        entityManager.flush();
+
+        assertFalse(repository.existsById(3L));
+        int after = repository.findAll().size();
+
+        assertEquals(before - 1, after);
     }
 }
