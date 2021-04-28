@@ -54,7 +54,7 @@ public class SecurityRepositoryTest extends AbstractRepositoryClass {
     @Test
     public void deleteById_ShouldDeleteRecordBySecId() {
         int before = repository.findAll().size();
-        repository.deleteBySecId("3");
+        repository.deleteById(12441);
         entityManager.flush();
 
         int after = repository.findAll().size();
