@@ -17,7 +17,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "history")
-@Relation(value = "history", collectionRelation = "history")
+@Relation(value = "history", collectionRelation = "histories")
 public class History {
 
     // fields
