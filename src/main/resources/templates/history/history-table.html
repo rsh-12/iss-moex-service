@@ -73,7 +73,12 @@
 
     </div>
     <div th:unless="${!histories.empty}">
-        <h4 class="text-center">No fields found!</h4>
+        <div class="center">
+            <h2>No fields found!</h2>
+            <a href="#" onclick="history.back()" style="text-decoration: none;">
+                <button class="btn btn-outline-primary btn-lg" style="margin: 0 auto; display: block;">Go Back</button>
+            </a>
+        </div>
     </div>
 
 </div>
