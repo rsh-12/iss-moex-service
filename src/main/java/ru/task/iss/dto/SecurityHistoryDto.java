@@ -4,9 +4,12 @@ package ru.task.iss.dto;
  * Time: 8:05 AM
  * */
 
+import org.springframework.hateoas.server.core.Relation;
+
 import java.time.LocalDate;
 
 /* For retrieving some fields from DB */
+@Relation(value = "field", collectionRelation = "fields")
 public class SecurityHistoryDto {
 
     private String secId;
