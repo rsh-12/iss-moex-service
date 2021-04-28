@@ -88,8 +88,8 @@ public class History {
     @Digits(integer = 12, fraction = 4)
     private Double waVal;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sec_id_fk", referencedColumnName = "sec_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "sec_id_fk", insertable = false, updatable = false)
     private Security security;
 
     // constructor
