@@ -4,6 +4,7 @@ package ru.task.iss.controller;
  * Time: 6:30 PM
  * */
 
+import com.thoughtworks.qdox.model.expression.Add;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import ru.task.iss.dto.SecurityDto;
@@ -60,8 +61,14 @@ public class SecurityRestControllerTest extends AbstractControllerClass {
                 .andDo(print());
     }
 
-    // todo: test the view method
-    // todo: test the findAllSecurities with params
+    /* Get all securities - returns 2 elems sorted by shortname asc*/
+    @Test
+    public void findAllSecuritiesWithParams_ShouldReturnSorted2Objects() throws Exception {
+        mvc.perform(get("/api/securities?sort=shortname,asc&size=2"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("_embedded.securities.size()", is(2)))
+                .andExpect(jsonPath("_embedded.securities[0].shortname", containsString("Apple")));
+    }
 
 
     /* Get the security by id - returns ok */
