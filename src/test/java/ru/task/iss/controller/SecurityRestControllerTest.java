@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import ru.task.iss.dto.SecurityDto;
 
+import java.io.IOException;
+
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -17,6 +19,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 public class SecurityRestControllerTest extends AbstractControllerClass {
+
+    // todo: test the view method
+    // todo: test the findAllSecurities with params
+
+    /* Get all securities - returns max 10 elems by default */
+    @Test
+    public void findAllSecurities_ShouldReturnAllSecurities() throws Exception {
+        mvc.perform(get(SECURITIES))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
 
     /* Get the security by id - returns ok */
     @Test
