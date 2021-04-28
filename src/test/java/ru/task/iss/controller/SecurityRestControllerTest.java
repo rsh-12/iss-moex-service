@@ -4,7 +4,6 @@ package ru.task.iss.controller;
  * Time: 6:30 PM
  * */
 
-import com.thoughtworks.qdox.model.expression.Add;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import ru.task.iss.dto.SecurityDto;
@@ -115,5 +114,24 @@ public class SecurityRestControllerTest extends AbstractControllerClass {
                 .andExpect(jsonPath("shortname", containsString("shortname")))
                 .andExpect(jsonPath("name", containsString("имя организации")))
                 .andDo(print());
+    }
+
+    /* Delete the Security object by id - should delete the object by id */
+    @Test
+    public void delete_ShouldDeleteSecurityById() throws Exception {
+        final int SECURITY_ID = 131568;
+
+        mvc.perform(get(SECURITIES + SECURITY_ID))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("shortname", containsString("АСКО ао")))
+                .andDo(print());
+
+        mvc.perform(delete(SECURITIES + SECURITY_ID)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+        mvc.perform(get(SECURITIES + SECURITY_ID))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("error", containsString("Not Found")));
     }
 }
