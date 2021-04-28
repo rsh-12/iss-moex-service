@@ -7,6 +7,7 @@ package ru.task.iss.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.server.core.Relation;
 
 import javax.persistence.*;
@@ -27,7 +28,8 @@ public class History {
 
     private String boardId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate tradeDate;
 
     private String shortname;
