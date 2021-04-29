@@ -6,6 +6,7 @@ package ru.task.iss.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
@@ -68,7 +69,8 @@ public class HistoryRestController {
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer pageNo,
             @RequestParam(value = "size", required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(value = "sort", required = false, defaultValue = "secId") String sort,
-            @RequestParam(value = "date", required = false) LocalDate tradeDate
+            @RequestParam(value = "date", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate tradeDate
     ) {
 
         List<EntityModel<History>> histories = historyService
