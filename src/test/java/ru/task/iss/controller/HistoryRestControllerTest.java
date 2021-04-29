@@ -8,8 +8,7 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import ru.task.iss.dto.HistoryDto;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.containsStringIgnoringCase;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -103,9 +102,27 @@ public class HistoryRestControllerTest extends AbstractControllerClass {
 
     /* Delete History - returns no content, 204 */
     @Test
-    public void delete_ShouldDeleteHistoryById() throws Exception{
+    public void delete_ShouldDeleteHistoryById() throws Exception {
         mvc.perform(get(HISTORIES + 3)).andExpect(status().isOk());
         mvc.perform(delete(HISTORIES + 3)).andExpect(status().isNoContent());
         mvc.perform(get(HISTORIES + 3)).andExpect(status().isNotFound());
+    }
+
+    /* Update History - returns 200 ok */
+    @Test
+    public void update_ShouldUpdateHistory() throws Exception {
+        mvc.perform(get(HISTORIES + 2))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("shortname", is("AKEU ETF")));
+
+        String shortname = "{\"shortname\": \"IKIGAI\"}";
+        mvc.perform(patch(HISTORIES + 2)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(shortname))
+                .andExpect(status().isOk());
+
+        mvc.perform(get(HISTORIES + 2))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("shortname", is("IKIGAI")));
     }
 }
