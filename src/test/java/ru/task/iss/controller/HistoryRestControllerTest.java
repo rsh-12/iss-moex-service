@@ -125,4 +125,12 @@ public class HistoryRestControllerTest extends AbstractControllerClass {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("shortname", is("IKIGAI")));
     }
+
+    @Test
+    public void find_ShouldReturnHistory_FilterByDate() throws Exception {
+        mvc.perform(get("/api/histories?date=2020-04-20"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("_embedded.histories.size()", is(1)))
+                .andExpect(jsonPath("_embedded.histories[0].boardId", containsString("TQTE")));
+    }
 }
