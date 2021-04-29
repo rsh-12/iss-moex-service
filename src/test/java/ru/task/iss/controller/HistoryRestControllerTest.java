@@ -44,6 +44,28 @@ public class HistoryRestControllerTest extends AbstractControllerClass {
                 .andDo(print());
     }
 
+    /* Create a new History - returns 200 ok */
+    @Test
+    public void createHistory_ShouldReturnOK() throws Exception {
+        mvc.perform(get(HISTORIES + 4))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("error", containsStringIgnoringCase("not found")));
+
+        HistoryDto history = new HistoryDto();
+        history.setSecId("1");
+        history.setShortname("HIST");
+
+        mvc.perform(post(HISTORIES)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertToJson(history)))
+                .andExpect(status().isCreated());
+
+        mvc.perform(get(HISTORIES + 4))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("shortname", containsString("HIST")))
+                .andDo(print());
+    }
+
     /* Get all History objects - default max 10 elems */
     @Test
     public void findAll_ShouldReturnHistoryObjects() throws Exception {
