@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import ru.task.iss.dto.HistoryDto;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.containsStringIgnoringCase;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -17,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class HistoryRestControllerTest extends AbstractControllerClass {
 
-    /* Create a new History object - returns validation error, 404 */
+    /* Create a new History object - returns validation error, 400 */
     @Test
     public void createHistory_ShouldReturnError() throws Exception {
         HistoryDto history = new HistoryDto();
@@ -27,6 +28,19 @@ public class HistoryRestControllerTest extends AbstractControllerClass {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(convertToJson(history)))
                 .andExpect(status().isBadRequest())
+                .andDo(print());
+    }
+
+    /* Create a new History - returns PK not found 404 */
+    @Test
+    public void createHistory_ShouldReturnPkNotFoundError() throws Exception {
+        HistoryDto history = new HistoryDto();
+
+        mvc.perform(post(HISTORIES)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertToJson(history)))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("error", containsStringIgnoringCase("not found")))
                 .andDo(print());
     }
 
