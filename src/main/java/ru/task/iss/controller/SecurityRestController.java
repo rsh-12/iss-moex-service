@@ -75,7 +75,7 @@ public class SecurityRestController {
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer pageNo,
             @RequestParam(value = "size", required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(value = "sort", required = false, defaultValue = "secId") String sort,
-            @RequestParam(value = "title", required = false) String emitentTitle
+            @RequestParam(value = "title", required = false) String emitentTitle // todo: fix cyrllic problem
     ) {
 
         List<EntityModel<Security>> securities = securityService
