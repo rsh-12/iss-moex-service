@@ -23,6 +23,7 @@ import ru.task.iss.service.SecurityService;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -75,7 +76,7 @@ public class SecurityRestController {
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer pageNo,
             @RequestParam(value = "size", required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(value = "sort", required = false, defaultValue = "secId") String sort,
-            @RequestParam(value = "title", required = false) String emitentTitle // todo: fix cyrllic problem
+            @RequestParam(value = "title", required = false) String emitentTitle
     ) {
 
         List<EntityModel<Security>> securities = securityService
