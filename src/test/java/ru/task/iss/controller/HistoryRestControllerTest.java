@@ -49,12 +49,20 @@ public class HistoryRestControllerTest extends AbstractControllerClass {
     }
 
     /* Get History by id - returns 200 ok */
-
     @Test
     public void find_ShouldReturnHistoryById() throws Exception {
         mvc.perform(get(HISTORIES + 1))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("shortname", containsString("АбрауДюрсо")))
+                .andDo(print());
+    }
+
+    /* Get History by id - returns 404 not found */
+    @Test
+    public void find_ShouldReturnNotFound() throws Exception {
+        mvc.perform(get(HISTORIES + 9999))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("error", containsString("Not Found")))
                 .andDo(print());
     }
 }
