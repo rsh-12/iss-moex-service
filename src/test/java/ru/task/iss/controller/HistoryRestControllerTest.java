@@ -10,8 +10,7 @@ import ru.task.iss.dto.HistoryDto;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -100,5 +99,13 @@ public class HistoryRestControllerTest extends AbstractControllerClass {
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("error", containsString("Not Found")))
                 .andDo(print());
+    }
+
+    /* Delete History - returns no content, 204 */
+    @Test
+    public void delete_ShouldDeleteHistoryById() throws Exception{
+        mvc.perform(get(HISTORIES + 3)).andExpect(status().isOk());
+        mvc.perform(delete(HISTORIES + 3)).andExpect(status().isNoContent());
+        mvc.perform(get(HISTORIES + 3)).andExpect(status().isNotFound());
     }
 }
