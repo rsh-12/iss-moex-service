@@ -4,7 +4,9 @@ package ru.task.iss.controller;
  * Time: 9:46 PM
  * */
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.http.MediaType;
 import ru.task.iss.dto.HistoryDto;
 
@@ -14,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class HistoryRestControllerTest extends AbstractControllerClass {
 
     /* Create a new History object - returns validation error, 400 */
@@ -66,7 +69,7 @@ public class HistoryRestControllerTest extends AbstractControllerClass {
 
     /* Get all History objects - default max 10 elems */
     @Test
-    public void findAll_ShouldReturnHistoryObjects() throws Exception {
+    public void a_findAll_ShouldReturnHistoryObjects() throws Exception {
         mvc.perform(get(HISTORIES))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("_embedded.histories[0].shortname", containsString("AKNX ETF")))
@@ -75,7 +78,7 @@ public class HistoryRestControllerTest extends AbstractControllerClass {
 
     /* Get all History objects - sort by boardId */
     @Test
-    public void findAllSortByBoardid_ShouldReturnHistoryObjects() throws Exception {
+    public void a_findAllSortByBoardid_ShouldReturnHistoryObjects() throws Exception {
         mvc.perform(get("/api/histories?sort=boardId,asc"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("_embedded.histories[0].boardId", containsString("TQBR")))
