@@ -2,7 +2,11 @@
 
 ---
 
-> ##  [О проекте](/docs/about.md)
-> ##  [Как запустить](/docs/run.md)
-> ##  [Работа с API](/docs/api.md)
+###  [О проекте](/docs/about.md)
+
+
+###  [Как запустить](/docs/run.md)
+
+
+###  [Работа с API](/docs/api.md)
 

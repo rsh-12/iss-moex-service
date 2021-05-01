@@ -16,7 +16,7 @@
 <br>
 
 ## <p style="text-align: center">Docker Hub</p>
-1. Найти файл docker-compose.yml [здесь](https://github.com/rsh-12/iss-moex-service). 
+1. Найти файл docker-compose.yml [здесь](https://github.com/rsh-12/iss-moex-service/blob/main/docker-compose.yml). 
    
 
 2. Скачать этот файл, внести необходимые корректировки (порты или env, etc.)
