@@ -1,3 +1,4 @@
+# Download only this file if you want to run app in a Docker
 version: '3.8'
 services:
   db:
