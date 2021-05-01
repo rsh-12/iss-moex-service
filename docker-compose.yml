@@ -1,0 +1,29 @@
+# Download only this file if you want to run app in a Docker
+version: '3.8'
+services:
+  db:
+    image: postgres:11.4-alpine
+    container_name: iss-db
+    ports:
+      - 5430:5432 # todo: remove ports later
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data/pgdata
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: iss
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+
+  app:
+    container_name: iss-app
+    image: rsh12/iss-app
+    ports:
+      - 8080:8080
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/iss
+      DB_USER: postgres
+      DB_PWD: postgres
+    restart: always
+    links:
+      - db
