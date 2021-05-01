@@ -4,13 +4,13 @@
 
 ---
 
-Монолитное приложение, разработанное с помощью **Spring Boot**, состоит из следующий слоев:
+Монолитное приложение, разработанное с помощью **Spring Boot**, состоит из следующих слоев:
 * API, UI
 * Слой бизнес-логики
 * Слой Data Access, предоставляемое **Spring Boot Starter Data Jpa**
 * Database (в моем случае это СУБД **PostgreSQL**)
 
-<p align="center">
+<p style="text-align: center">
   <img src="/docs/img/schema.png" alt="webapp schema" style="width:350px; height: 350px;"/>
 </p>
 
