@@ -3,6 +3,8 @@
 # ISS MOEX SERVICE
 
 ---
+> `com.example`/swagger-ui/
+
 
 ###  [О проекте](/docs/about.md)
 
