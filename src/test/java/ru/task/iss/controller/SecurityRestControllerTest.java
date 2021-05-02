@@ -93,10 +93,7 @@ public class SecurityRestControllerTest extends AbstractControllerClass {
     @Test
     public void update_ShouldUpdateSecurity() throws Exception {
         final int SECURITY_ID = 154676;
-
-        SecurityDto securityDto = new SecurityDto();
-        securityDto.setShortname("shortname");
-        securityDto.setName("имя организации");
+        String requestBody = "{\"shortname\": \"shortname\", \"name\": \"имя организации\"}";
 
         mvc.perform(get(SECURITIES + SECURITY_ID))
                 .andExpect(status().isOk())
@@ -105,7 +102,7 @@ public class SecurityRestControllerTest extends AbstractControllerClass {
 
         mvc.perform(patch(SECURITIES + SECURITY_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(convertToJson(securityDto)))
+                .content(requestBody))
                 .andExpect(status().isOk())
                 .andDo(print());
 
