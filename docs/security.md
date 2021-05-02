@@ -4,7 +4,6 @@
 ### [Работа с API](/docs/api.md)
 
 * [import](#IMPORT)  
-  
 * [create](#CREATE)  
 * [read](#READ)  
 * [update](#UPDATE)  
@@ -28,29 +27,26 @@
 ```
 
 Поля и их данные по умолчанию, если они не были переданы в запросе.
+Обязательны **id, name, secId**
 ```json
 {
-  "admittedQuote": 0,
-  "admittedValue": 0,
-  "boardId": "string",
-  "close": 0,
-  "high": 0,
-  "legalClosePrice": 0,
-  "low": 0,
-  "marketPrice2": 0,
-  "marketPrice3": 0,
-  "marketPrice3TradesValue": 0,
-  "mp2ValTrd": 0,
-  "numTrades": 0,
-  "open": 0,
+  "emitentId": 0,
+  "emitentInn": "string",
+  "emitentOkpo": "string",
+  "emitentTitle": "string",
+  "gosreg": "string",
+  "group": "string",
+  "id": 0,
+  "isTraded": 0,
+  "isin": "string",
+  "marketPriceBoardid": "string",
+  "name": "string",
+  "primaryBoardid": "string",
+  "regnumber": "string",
   "secId": "string",
   "shortname": "string",
-  "tradeDate": "2021-05-02",
-  "value": 0,
-  "volume": 0,
-  "waPrice": 0,
-  "waVal": 0
-}   
+  "type": "string"
+}
 ```
 
 # READ
@@ -76,6 +72,17 @@
   Получить объект по его ID
 ```
 
+## Вывод `close, emitentTitle, name, numTrades, open, regnumber, secId, tradeDate`
+
+<br>
+
+`GET /api/securities/view[?page|size|sort|title|date]` - см. выше
+
+```text
+  Сортировка осуществляется по всем приведенным выше полям.
+  Фильтрая по name и tradeDate.
+```
+
 
 # UPDATE
 `PATCH /api/securities/{id}`
@@ -87,26 +94,22 @@
 
 ```json
 {
-  "admittedQuote": 0,
-  "admittedValue": 0,
-  "boardId": "string",
-  "close": 0,
-  "high": 0,
-  "legalClosePrice": 0,
-  "low": 0,
-  "marketPrice2": 0,
-  "marketPrice3": 0,
-  "marketPrice3TradesValue": 0,
-  "mp2ValTrd": 0,
-  "numTrades": 0,
-  "open": 0,
+  "emitentId": 0,
+  "emitentInn": "string",
+  "emitentOkpo": "string",
+  "emitentTitle": "string",
+  "gosreg": "string",
+  "group": "string",
+  "id": 0,
+  "isTraded": 0,
+  "isin": "string",
+  "marketPriceBoardid": "string",
+  "name": "string",
+  "primaryBoardid": "string",
+  "regnumber": "string",
   "secId": "string",
   "shortname": "string",
-  "tradeDate": "2021-05-02",
-  "value": 0,
-  "volume": 0,
-  "waPrice": 0,
-  "waVal": 0
+  "type": "string"
 }
 ```
 
