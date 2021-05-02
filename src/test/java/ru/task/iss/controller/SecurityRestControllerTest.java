@@ -134,4 +134,31 @@ public class SecurityRestControllerTest extends AbstractControllerClass {
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("error", containsString("Not Found")));
     }
+
+    /* Create a new object - returns 400, bad request */
+    @Test
+    public void create_ShouldReturnBadRequest() throws Exception {
+        SecurityDto securityDto = new SecurityDto();
+
+        mvc.perform(post(SECURITIES)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertToJson(securityDto)))
+                .andExpect(status().isBadRequest())
+                .andDo(print());
+    }
+
+    /* Create a new object */
+    @Test
+    public void create_ShouldSaveNewSecurity() throws Exception {
+        SecurityDto securityDto = new SecurityDto();
+        securityDto.setId(654);
+        securityDto.setSecId("9");
+        securityDto.setName("Секьюрити Нейм"); // the name must contain only Cyrillic and numbers
+
+        mvc.perform(post(SECURITIES)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertToJson(securityDto)))
+                .andExpect(status().isCreated())
+                .andDo(print());
+    }
 }
