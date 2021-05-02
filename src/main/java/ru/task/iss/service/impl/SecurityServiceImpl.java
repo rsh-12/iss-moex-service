@@ -60,18 +60,19 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
     /**
      * Creates a new Security object and then saves to the DB.
      *
-     * @param security is a Security object.
+     * @param securityDto is a SecurityDto object.
      * @throws CustomException if name is not valid.
      */
     @Override
-    public void create(Security security) {
+    public void create(SecurityDto securityDto) {
         log.info("> creating a new Security object");
 
-        if (!security.getName().matches("^[а-яА-Я0-9]+( [а-яА-Я0-9]+)*$")) {
+        if (securityDto.getName() == null || !securityDto.getName().matches("^[а-яА-Я0-9]+( [а-яА-Я0-9]+)*$")) {
             log.warn("> name validation failed");
             throw new CustomException("Validation error",
                     "The name must contain only Cyrillic and numbers", HttpStatus.BAD_REQUEST);
         }
+        Security security = mapper.map(securityDto, Security.class);
         save(security);
     }
 
