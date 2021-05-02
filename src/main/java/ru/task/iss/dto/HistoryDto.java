@@ -7,9 +7,7 @@ package ru.task.iss.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class HistoryDto {
@@ -22,8 +20,6 @@ public class HistoryDto {
 
     private String shortname;
 
-    @NotNull
-    @Column(name = "sec_id_fk", nullable = false)
     private String secId;
 
     @Digits(integer = 12, fraction = 4)
