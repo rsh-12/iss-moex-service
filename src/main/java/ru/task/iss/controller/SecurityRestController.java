@@ -64,8 +64,8 @@ public class SecurityRestController {
     /* Create a Security */
     @ApiOperation(value = "Create a new Security object")
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<String> createSecurity(@Valid @RequestBody Security security) {
-        securityService.create(security);
+    public ResponseEntity<String> createSecurity(@Valid @RequestBody SecurityDto securityDto) {
+        securityService.create(securityDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
