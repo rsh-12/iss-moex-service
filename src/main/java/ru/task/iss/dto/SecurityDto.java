@@ -5,9 +5,20 @@ package ru.task.iss.dto;
  * */
 
 import javax.persistence.Column;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class SecurityDto {
+
+    @Digits(integer = 12, fraction = 0)
+    @NotNull
+    private Integer id;
+
+    @Size(max = 64)
+    @NotBlank
+    private String secId;
 
     @Size(max = 64)
     private String shortname;
@@ -15,14 +26,18 @@ public class SecurityDto {
     @Size(max = 128)
     private String regnumber;
 
+    @NotNull
+    @NotBlank
     @Size(max = 128)
     private String name;
 
     @Size(max = 128)
     private String isin;
 
+    @Digits(integer = 1, fraction = 0)
     private Integer isTraded;
 
+    @Digits(integer = 12, fraction = 0)
     private Integer emitentId;
 
     @Size(max = 128)
@@ -50,6 +65,22 @@ public class SecurityDto {
     @Size(max = 4)
     @Column(name = "marketprice_boardid")
     private String marketPriceBoardid;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getSecId() {
+        return secId;
+    }
+
+    public void setSecId(String secId) {
+        this.secId = secId;
+    }
 
     public String getShortname() {
         return shortname;
@@ -163,4 +194,12 @@ public class SecurityDto {
         this.marketPriceBoardid = marketPriceBoardid;
     }
 
+    @Override
+    public String toString() {
+        return "SecurityDto{" +
+                "id=" + id +
+                ", secId='" + secId + '\'' +
+                ", shortname='" + shortname + '\'' +
+                '}';
+    }
 }

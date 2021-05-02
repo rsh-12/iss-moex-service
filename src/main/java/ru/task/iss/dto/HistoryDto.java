@@ -5,19 +5,25 @@ package ru.task.iss.dto;
  * */
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class HistoryDto {
 
     private String boardId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate tradeDate;
 
     private String shortname;
 
+    @NotNull
+    @Column(name = "sec_id_fk", nullable = false)
     private String secId;
 
     @Digits(integer = 12, fraction = 4)
@@ -226,5 +232,13 @@ public class HistoryDto {
 
     public void setWaVal(Double waVal) {
         this.waVal = waVal;
+    }
+
+    @Override
+    public String toString() {
+        return "HistoryDto{" +
+                "shortname='" + shortname + '\'' +
+                ", secId='" + secId + '\'' +
+                '}';
     }
 }

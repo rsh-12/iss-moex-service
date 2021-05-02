@@ -15,7 +15,7 @@ public interface SecurityService {
 
     void importXmlData(MultipartFile file) throws IOException;
 
-    void create(Security security);
+    void create(SecurityDto securityDto);
 
     List<Security> findAllSecurities(Integer pageNo, Integer pageSize, String sort, String emitentTitle);
 
