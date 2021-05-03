@@ -81,8 +81,8 @@ public interface SecurityService {
      * @param tradeDate    compares to trade_date.
      * @return list of specific fields.
      */
-    List<SecurityHistoryDto> findSpecificFields(
-            Integer pageNo, Integer pageSize, String sort, String emitentTitle, LocalDate tradeDate);
+    List<SecurityHistoryDto> findViewFields(Integer pageNo, Integer pageSize, String sort,
+                                            String emitentTitle, LocalDate tradeDate);
 
     /**
      * Returns a list of specific fields: secid, regnumber, name, emitent_title, tradedate, numtrades, open, close.

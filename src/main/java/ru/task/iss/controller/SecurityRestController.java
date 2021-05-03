@@ -127,7 +127,7 @@ public class SecurityRestController {
     ) {
 
         List<EntityModel<SecurityHistoryDto>> securities = securityService
-                .findSpecificFields(pageNo, pageSize, sort, emitentTitle, tradeDate).stream()
+                .findViewFields(pageNo, pageSize, sort, emitentTitle, tradeDate).stream()
                 .map(specificFieldsAssembler::toModel)
                 .collect(Collectors.toList());
 

@@ -113,7 +113,7 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
     }
 
     @Override
-    public List<SecurityHistoryDto> findSpecificFields(Integer pageNo, Integer pageSize, String sort,
+    public List<SecurityHistoryDto> findViewFields(Integer pageNo, Integer pageSize, String sort,
                                                        String emitentTitle, LocalDate tradeDate) {
         log.info("> getting a list of specific fields");
 
