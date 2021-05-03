@@ -42,14 +42,6 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
         securityRepository.save(security);
     }
 
-    /**
-     * Converts MultipartFile to a File.
-     * Parses and initializes the entity, then saves to the DB.
-     *
-     * @param multipartFile XML Multipart file.
-     * @throws CustomException if file was not found, catches an IOException,
-     *                         a ParserConfigurationException or a SAXException.
-     */
     @Override
     public void importXmlData(MultipartFile multipartFile) {
         log.info("> parsing XML file (security)");
@@ -57,12 +49,6 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
         securityXmlParser.parseAndSave(multipartFile);
     }
 
-    /**
-     * Creates a new Security object and then saves to the DB.
-     *
-     * @param securityDto is a SecurityDto object.
-     * @throws CustomException if name is not valid.
-     */
     @Override
     public void create(SecurityDto securityDto) {
         log.info("> creating a new Security object");
@@ -76,15 +62,6 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
         save(security);
     }
 
-    /**
-     * Method searches for records in the DB and always returns a list of Security objects or an empty list
-     *
-     * @param pageNo       - page number, default 0.
-     * @param pageSize     - page size,default 10 elements.
-     * @param sort         - sorting, default by secId.
-     * @param emitentTitle - filtering by emitent_title.
-     * @return list of Security objects.
-     */
     @Override
     public List<Security> findAllSecurities(Integer pageNo, Integer pageSize,
                                             String sort, String emitentTitle) {
@@ -98,13 +75,6 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
         return securityRepository.findAll(pageRequest, emitentTitle).getContent();
     }
 
-    /**
-     * Returns a Security object from database.
-     *
-     * @param id is an identifier of the Security object.
-     * @return a Security object.
-     * @throws CustomException if an object was not found.
-     */
     @Override
     public Security findById(Integer id) {
         log.info("> getting a Security by id: " + id);
@@ -113,12 +83,6 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
                 .orElseThrow(() -> new CustomException("Not Found", "Security not found", HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * Deletes a record by ID from the DB.
-     *
-     * @param id is a Security identifier
-     * @throws CustomException if object was not found.
-     */
     @Override
     public void deleteById(Integer id) {
         log.info("> deleting a Security by id: " + id);
@@ -130,14 +94,6 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
         securityRepository.deleteById(id);
     }
 
-    /**
-     * Searches a securiy by ID.
-     * Updates a record fields and then saves to the DB.
-     *
-     * @param id          is a Security object identifier.
-     * @param securityDto - DTO for Security entity.
-     * @throws CustomException if Security by ID was not found.
-     */
     @Override
     public void update(Integer id, SecurityDto securityDto) {
         log.info("> updating a Security by id: " + id);
@@ -156,18 +112,8 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
         save(security);
     }
 
-    /**
-     * Returns a list of specific fields: secid, regnumber, name, emitent_title, tradedate, numtrades, open, close.
-     *
-     * @param pageNo       indicates the page number.
-     * @param pageSize     sets the number of objects to return.
-     * @param sort         - sorting by field, case sensitive.
-     * @param emitentTitle - filtering by emitent_title, case insensitive.
-     * @param tradeDate    compares to trade_date.
-     * @return list of specific fields.
-     */
     @Override
-    public List<SecurityHistoryDto> findSpecificFields(Integer pageNo, Integer pageSize, String sort,
+    public List<SecurityHistoryDto> findViewFields(Integer pageNo, Integer pageSize, String sort,
                                                        String emitentTitle, LocalDate tradeDate) {
         log.info("> getting a list of specific fields");
 
@@ -179,14 +125,6 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
         return securityRepository.findFields(pageRequest, emitentTitle, tradeDate).getContent();
     }
 
-    /**
-     * Returns a list of specific fields: secid, regnumber, name, emitent_title, tradedate, numtrades, open, close.
-     *
-     * @param pageNo   indicates the page number.
-     * @param pageSize sets the number of objects to return.
-     * @param sort     - sorting by field, case sensitive.
-     * @return list of specific fields.
-     */
     @Override
     public List<SecurityHistoryDto> findViewFields(Integer pageNo, Integer pageSize, String sort) {
         log.info("> getting a list of specific fields");
