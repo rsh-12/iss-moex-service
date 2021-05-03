@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.task.iss.entity.History;
+import ru.task.iss.exception.MvcException;
 import ru.task.iss.service.HistoryService;
 
 import javax.validation.Valid;
@@ -78,7 +79,7 @@ public class HistoryController {
     @PostMapping(value = "/import")
     public String importData(@RequestParam("file") MultipartFile file) throws IOException {
         if (file.isEmpty()) {
-            throw new RuntimeException("Please select a file to upload");
+            throw new MvcException("Please select a file to upload");
         }
 
         historyService.importXmlData(file);

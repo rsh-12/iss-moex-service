@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.task.iss.dto.HistoryDto;
 import ru.task.iss.entity.History;
 import ru.task.iss.exception.CustomException;
+import ru.task.iss.exception.MvcException;
 import ru.task.iss.repository.HistoryRepository;
 import ru.task.iss.repository.SecurityRepository;
 import ru.task.iss.service.HistoryService;
@@ -109,7 +110,7 @@ public class HistoryServiceImpl extends AbstractServiceClass implements HistoryS
     public void saveMvc(History history) {
         String fk = history.getSecId();
         if (!securityRepository.existsBySecId(fk)) {
-            throw new RuntimeException("Primary Id Not Found: " + fk);
+            throw new MvcException("Primary Id Not Found: " + fk);
         }
         historyRepository.save(history);
     }
