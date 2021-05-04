@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.task.iss.dto.SecurityDto;
 import ru.task.iss.entity.Security;
 import ru.task.iss.service.SecurityService;
 
@@ -65,14 +66,14 @@ public class SecurityController {
     }
 
     @PostMapping("/save")
-    public String saveSecurity(@Valid @ModelAttribute Security security,
+    public String saveSecurity(@Valid @ModelAttribute SecurityDto securityDto,
                                BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "security/security-form";
         }
 
-        securityService.save(security);
+        securityService.save(securityDto);
         return "redirect:/security";
     }
 
