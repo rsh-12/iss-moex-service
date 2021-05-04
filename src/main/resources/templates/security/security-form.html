@@ -67,7 +67,7 @@
                          th:if="${#fields.hasErrors('name')}"
                          th:errors="*{name}">name error
                     </div>
-                    <input th:field="*{name}" maxlength="128" class="form-control" id="name" type="text">
+                    <input required th:field="*{name}" maxlength="128" class="form-control" id="name" type="text">
                 </div>
 
                 <div>
