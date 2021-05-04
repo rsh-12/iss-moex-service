@@ -43,6 +43,12 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
     }
 
     @Override
+    public void save(SecurityDto securityDto) {
+        Security security = mapper.map(securityDto, Security.class);
+        save(security);
+    }
+
+    @Override
     public void importXmlData(MultipartFile multipartFile) {
         log.info("> parsing XML file (security)");
         SecurityXmlParser securityXmlParser = new SecurityXmlParser(securityRepository);
@@ -114,7 +120,7 @@ public class SecurityServiceImpl extends AbstractServiceClass implements Securit
 
     @Override
     public List<SecurityHistoryDto> findViewFields(Integer pageNo, Integer pageSize, String sort,
-                                                       String emitentTitle, LocalDate tradeDate) {
+                                                   String emitentTitle, LocalDate tradeDate) {
         log.info("> getting a list of specific fields");
 
         PageRequest pageRequest = getPageRequest(pageNo, pageSize, sort, SECURITY_HISTORY_FIELDS);

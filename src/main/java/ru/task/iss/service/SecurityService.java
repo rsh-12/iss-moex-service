@@ -15,6 +15,8 @@ public interface SecurityService {
     /* Save the security to the DB */
     void save(Security security);
 
+    void save(SecurityDto securityDto);
+
     /**
      * Converts MultipartFile to a File.
      * Parses and initializes the entity, then saves to the DB.
