@@ -65,8 +65,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(error, httpStatus);
     }
 
-    @ExceptionHandler(value = MvcException.class)
-    public ModelAndView handleException(RuntimeException e) {
+    @ExceptionHandler
+    public ModelAndView handleException(MvcException e) {
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("errorMessage", e.getMessage());
