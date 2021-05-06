@@ -15,8 +15,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,25 +42,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<ErrorResponse> handleException(CustomException ex) {
 
-        HttpStatus httpStatus = ex.getHttpStatus();
+        var error = new ErrorResponse.Builder()
+                .status(ex.getHttpStatus())
+                .error(ex.getError())
+                .message(ex.getMessage()).build();
 
-        if (httpStatus == null) {
-            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-
-        ErrorResponse error = new ErrorResponse();
-
-        if (ex.getError() != null) {
-            error.setError(ex.getError());
-        } else {
-            error.setError("Something went wrong");
-        }
-
-        error.setTimestamp(new Date());
-        error.setHttpStatus(httpStatus.value());
-        error.setMessage(ex.getMessage());
-
-        return new ResponseEntity<>(error, httpStatus);
+        return new ResponseEntity<>(error, HttpStatus.valueOf(error.getStatus()));
     }
 
     @ExceptionHandler
