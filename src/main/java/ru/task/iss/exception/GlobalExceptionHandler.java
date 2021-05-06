@@ -12,7 +12,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.List;
@@ -50,12 +49,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.valueOf(error.getStatus()));
     }
 
-    @ExceptionHandler
-    public ModelAndView handleException(MvcException e) {
-
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("errorMessage", e.getMessage());
-        mav.setViewName("exception/error");
-        return mav;
-    }
 }
