@@ -68,11 +68,4 @@ public interface HistoryService {
     /* Save the history to the DB */
     void save(History history);
 
-    /**
-     * Saves the History object to the DB.
-     *
-     * @param history - History entity.
-     * @throws RuntimeException if primary key not found.
-     */
-    void saveMvc(History history);
 }
